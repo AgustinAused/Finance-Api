@@ -66,6 +66,41 @@ docker-compose up --build
 
 2. La aplicación estará disponible en `http://localhost:8080`.
 
+## Uso de la API
 
-Este README cubre los aspectos más importantes del proyecto, como la descripción, tecnologías, configuración, despliegue, uso de la API, estructura del proyecto y cómo contribuir. Puedes adaptarlo según las necesidades específicas de tu proyecto.
+### Endpoints Principales
 
+- `POST /api/expenses`: Registrar un nuevo gasto
+- `POST /api/incomes`: Registrar un nuevo ingreso
+- `GET /api/analytics`: Obtener análisis financiero en tiempo real
+
+### Ejemplo de Petición
+
+Registrar un nuevo gasto:
+
+```bash
+curl -X POST http://localhost:8080/api/expenses \
+  -H "Content-Type: application/json" \
+  -d '{
+        "amount": 100.0,
+        "description": "Compra de material de oficina",
+        "date": "2024-07-01"
+      }'
+```
+## Contribución
+
+Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
+
+1. Haz un fork del proyecto.
+2. Crea una rama nueva (`git checkout -b feature/nueva-caracteristica`).
+3. Realiza tus cambios y haz commit (`git commit -am 'Agrega nueva característica'`).
+4. Envía tus cambios a tu fork (`git push origin feature/nueva-caracteristica`).
+5. Crea un Pull Request en GitHub.
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para obtener más información.
+
+## Contacto
+
+Para cualquier consulta o sugerencia, puedes contactarme en [agus.aused@gmail.com](mailto:agus.aused@gmail.com).
