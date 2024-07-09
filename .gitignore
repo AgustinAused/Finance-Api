@@ -1,16 +1,10 @@
-# Compiled class file
+# Compiled class files
 *.class
 
-# Log file
+# Log files
 *.log
 
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
+# Package files
 *.jar
 *.war
 *.nar
@@ -19,17 +13,17 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Virtual machine crash logs
 hs_err_pid*
 replay_pid*
 
-HELP.md
+# Maven target directory (build output)
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+# Spring Tool Suite (STS) files
 .apt_generated
 .classpath
 .factorypath
@@ -38,13 +32,13 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
+# IntelliJ IDEA files
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# NetBeans files
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -54,11 +48,13 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+# VS Code files
 .vscode/
 
-### Enviroment ###
+# Environment files
 .env
 .env.test
 .env.prod
 
+# Other files to ignore
+HELP.md
