@@ -23,9 +23,9 @@ services:
   db:
     image: postgres:lastest
     environment:
-      POSTGRES_DB: finance_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -33,9 +33,9 @@ services:
   cassandra:
     image: cassandra:latest
     environment:
-      CASSANDRA_CLUSTER_NAME: "Test Cluster"
-      CASSANDRA_DC: "datacenter1"
-      CASSANDRA_RACK: "rack1"
+      CASSANDRA_CLUSTER_NAME: ${CASSANDRA_CLUSTER_NAME}
+      CASSANDRA_DC: ${CASSANDRA_DC}
+      CASSANDRA_RACK: ${CASSANDRA_RACK}
     volumes:
       - cassandra-data:/var/lib/cassandra/data
 

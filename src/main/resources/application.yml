@@ -22,9 +22,7 @@ cassandra:
     name: ${CASSANDRA_KEYSPACE:backend_api}
   contact-points: ${CASSANDRA_CONTACT_POINTS}
   port: ${CASSANDRA_PORT}
-  local-datacenter: ${CASSANDRA_LOCAL_DATACENTER}
-#  username: ${CASSANDRA_USERNAME}
-#  password: ${CASSANDRA_PASSWORD}
+  local-datacenter: ${CASSANDRA_DC}
 
 server:
   port: ${SERVER_PORT:8080}
