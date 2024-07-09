@@ -1,1 +1,39 @@
-spring.application.name=backend-api
+spring:
+  profiles: ${SPRING_PROFILES_ACTIVE:dev}
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/backend-api}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    jpa:
+      hibernate:
+        ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+      properties:
+        hibernate:
+          dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+          show_sql: ${SPRING_JPA_SHOW_SQL:true}
+          format_sql: ${SPRING_JPA_FORMAT_SQL:true}
+          use_sql_comments: ${SPRING_JPA_USE_SQL_COMMENTS:true}
+          jdbc:
+            time_zone: ${SPRING_JPA_JDBC_TIME_ZONE:UTC}
+
+cassandra:
+  keyspace:
+    name: ${CASSANDRA_KEYSPACE:backend_api}
+  contact-points: ${CASSANDRA_CONTACT_POINTS:localhost}
+  port: ${CASSANDRA_PORT:9042}
+  local-datacenter: ${CASSANDRA_LOCAL_DATACENTER:datacenter1}
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: ${SERVER_SERVLET_CONTEXT_PATH:/api}
+
+swagger:
+  api:
+    title: Backend API
+    description: Backend API
+    version: 1.0
+    contact:
+      name: Backend API
+      email: agus.aused@gmail.com
