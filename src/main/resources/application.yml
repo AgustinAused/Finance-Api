@@ -3,8 +3,8 @@ spring:
 
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/backend-api}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     jpa:
       hibernate:
         ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
@@ -20,9 +20,11 @@ spring:
 cassandra:
   keyspace:
     name: ${CASSANDRA_KEYSPACE:backend_api}
-  contact-points: ${CASSANDRA_CONTACT_POINTS:localhost}
-  port: ${CASSANDRA_PORT:9042}
-  local-datacenter: ${CASSANDRA_LOCAL_DATACENTER:datacenter1}
+  contact-points: ${CASSANDRA_CONTACT_POINTS}
+  port: ${CASSANDRA_PORT}
+  local-datacenter: ${CASSANDRA_LOCAL_DATACENTER}
+#  username: ${CASSANDRA_USERNAME}
+#  password: ${CASSANDRA_PASSWORD}
 
 server:
   port: ${SERVER_PORT:8080}
@@ -36,4 +38,4 @@ swagger:
     version: 1.0
     contact:
       name: Backend API
-      email: agus.aused@gmail.com
+      email: ${SWAGGER_API_CONTACT_EMAIL}
