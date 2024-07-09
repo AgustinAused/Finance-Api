@@ -58,3 +58,4 @@ build/
 
 # Other files to ignore
 HELP.md
+keystore.p12
