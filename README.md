@@ -21,7 +21,7 @@ Finance-App es una aplicación web backend desarrollada en Java utilizando el fr
 - Spring Boot
 - PostgreSQL
 - Docker
-- Gradle
+- Maven
 - Spring Security
 
 ## Instalación
@@ -48,10 +48,6 @@ SPRING_DATASOURCE_USERNAME=tu_usuario
 SPRING_DATASOURCE_PASSWORD=tu_contraseña
 SPRING_SECURITY_USER_NAME=admin
 SPRING_SECURITY_USER_PASSWORD=admin_password
-```
-3. Construir el proyecto con Gradle
-``` bash
-./gradlew build
 ```
 
 ## Despliegue con Docker
