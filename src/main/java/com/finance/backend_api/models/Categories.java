@@ -18,8 +18,8 @@ public class Categories {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String category_id;
 
-    @Column(name = "company_id")
-    @ManyToOne(targetEntity = Companies.class, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
     private Companies company;
 
     @Column(name = "name")
