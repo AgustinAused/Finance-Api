@@ -10,8 +10,9 @@ public class Transactions {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String transaccion_id;
 
-    @Column(name = "company_id", nullable = false)
-    private String company_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private Companies company;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
