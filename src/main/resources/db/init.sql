@@ -15,7 +15,7 @@ CREATE TABLE Users (
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     active bool DEFAULT FALSE,
-    company_id UUID,
+    company_id UUID NOT NULL,
     FOREIGN KEY (company_id) REFERENCES Companies(company_id) ON DELETE SET NULL
 );
 
@@ -29,10 +29,10 @@ CREATE TABLE Categories (
 
 CREATE TABLE Transactions (
                               transaction_id UUID PRIMARY KEY,
-                              company_id UUID,
-                              user_id UUID,
+                              company_id UUID NOT NULL,
+                              user_id UUID NOT NULL,
                               amount DECIMAL(10, 2) NOT NULL CHECK (amount >= 0),
-                              transaction_type VARCHAR(10) NOT NULL CHECK (transaction_type IN ('credit', 'debit')),
+                              transaction_type VARCHAR(10) NOT NULL CHECK (transaction_type IN ('income', 'expenses')),
                               timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                               category_id UUID,
                               description TEXT,
