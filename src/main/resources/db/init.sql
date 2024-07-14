@@ -13,7 +13,7 @@ CREATE TABLE Users (
                     password VARCHAR(255) NOT NULL,
                     email VARCHAR(255) UNIQUE NOT NULL CHECK (email ~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$'),
                     first_name VARCHAR(255) NOT NULL,
-                    last_name VARCHAR(255) NOT NULL,git
+                    last_name VARCHAR(255) NOT NULL,
                     active BOOLEAN DEFAULT FALSE,
                     company_id UUID,
                     FOREIGN KEY (company_id) REFERENCES Companies(company_id) ON DELETE SET NULL
