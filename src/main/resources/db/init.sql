@@ -8,15 +8,15 @@ CREATE TABLE Companies (
 
 
 CREATE TABLE Users (
-                       user_id UUID PRIMARY KEY,
-                       username VARCHAR(255) UNIQUE NOT NULL,
-                       password VARCHAR(255) NOT NULL,
-                       email VARCHAR(255) UNIQUE NOT NULL CHECK (email ~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$'),
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    active bool DEFAULT FALSE,
-    company_id UUID NOT NULL,
-    FOREIGN KEY (company_id) REFERENCES Companies(company_id) ON DELETE SET NULL
+                    user_id UUID PRIMARY KEY,
+                    username VARCHAR(255) UNIQUE NOT NULL,
+                    password VARCHAR(255) NOT NULL,
+                    email VARCHAR(255) UNIQUE NOT NULL CHECK (email ~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$'),
+                    first_name VARCHAR(255) NOT NULL,
+                    last_name VARCHAR(255) NOT NULL,
+                    active BOOLEAN DEFAULT FALSE,
+                    company_id UUID,
+                    FOREIGN KEY (company_id) REFERENCES Companies(company_id) ON DELETE SET NULL
 );
 
 CREATE TABLE Categories (
@@ -29,10 +29,10 @@ CREATE TABLE Categories (
 
 CREATE TABLE Transactions (
                               transaction_id UUID PRIMARY KEY,
-                              company_id UUID NOT NULL,
-                              user_id UUID NOT NULL,
+                              company_id UUID,
+                              user_id UUID,
                               amount DECIMAL(10, 2) NOT NULL CHECK (amount >= 0),
-                              transaction_type VARCHAR(10) NOT NULL CHECK (transaction_type IN ('income', 'expenses')),
+                              transaction_type VARCHAR(10) NOT NULL CHECK (transaction_type IN ('credit', 'debit')),
                               timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                               category_id UUID,
                               description TEXT,
