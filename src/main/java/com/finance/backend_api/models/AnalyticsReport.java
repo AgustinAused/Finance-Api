@@ -20,7 +20,7 @@ public class AnalyticsReport {
     @PrimaryKey
     private UUID report_id;
     private UUID Company_id;
-    private Date period;
+    private String period;
     private Map<String, Double> data;
 
     public AnalyticsReport() {
