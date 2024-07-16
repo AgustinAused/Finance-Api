@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,9 +18,9 @@ import java.util.UUID;
 public class AnalyticsReport {
 
     @PrimaryKey
-    private UUID reportId;
-    private int userId;
-    private String period;
+    private UUID report_id;
+    private UUID Company_id;
+    private Date period;
     private Map<String, Double> data;
 
     public AnalyticsReport() {
