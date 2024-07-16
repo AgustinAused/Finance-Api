@@ -17,9 +17,9 @@ import java.util.UUID;
 public class Event {
 
     @PrimaryKey
-    private UUID eventId;
-    private UUID userId;
-    private String enventType;
+    private UUID event_id;
+    private UUID user_id;
+    private String event_type;
     private Date timestamp;
     private Map<String, String> details;
 
