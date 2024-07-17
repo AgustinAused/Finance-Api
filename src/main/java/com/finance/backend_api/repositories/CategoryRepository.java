@@ -1,8 +1,8 @@
 package com.finance.backend_api.repositories;
 
-import com.finance.backend_api.models.Users;
+import com.finance.backend_api.models.Categories;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface CategoryRepository extends JpaRepository<Categories, Long> {
     // custom method
 }
