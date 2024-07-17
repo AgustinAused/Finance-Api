@@ -18,8 +18,8 @@ import java.util.UUID;
 public class AnalyticsReport {
 
     @PrimaryKey
-    private UUID report_id;
-    private UUID Company_id;
+    private Long report_id;
+    private Long Company_id;
     private String period;
     private Map<String, Double> data;
 

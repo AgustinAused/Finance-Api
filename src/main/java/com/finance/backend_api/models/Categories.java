@@ -15,8 +15,8 @@ import lombok.Setter;
 public class Categories {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String category_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long category_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)

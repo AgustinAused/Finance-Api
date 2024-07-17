@@ -7,8 +7,8 @@ import java.util.Date;
 public class Transactions {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String transaccion_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long transaccion_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
