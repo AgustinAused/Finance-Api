@@ -15,8 +15,8 @@ import lombok.Setter;
 public class Companies {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String company_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long company_id;
 
     @Column(name = "name")
     private String name;
