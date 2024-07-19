@@ -21,6 +21,7 @@ spring:
         jdbc:
           time_zone: UTC
   cassandra:
+    contact-points: ${CASSANDRA_HOST}
     port: ${CASSANDRA_PORT}
     local-datacenter: ${CASSANDRA_DATACENTER}
     username: ${CASSANDRA_USER}
