@@ -55,13 +55,14 @@ build/
 .env
 .env.test
 .env.prod
+src/main/resources/env.properties
 
 # Other files to ignore
 HELP.md
 keystore.p12
 docker-compose.yml
-application.yml
-application-dev.yml
-application-prod.yml
-application-test.yml
+#application.yml
+#application-dev.yml
+#application-prod.yml
+#application-test.yml
 
