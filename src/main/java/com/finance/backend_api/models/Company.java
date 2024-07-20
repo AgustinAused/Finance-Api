@@ -6,25 +6,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Entity
-@Table(name = "users")
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "companies")
 @Getter
 @Setter
-public class Users {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long user_id;
+    private Long company_id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "phone")
+    private String phone;
 
     @Column(name = "email")
     private String email;

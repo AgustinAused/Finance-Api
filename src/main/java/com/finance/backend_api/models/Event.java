@@ -1,5 +1,6 @@
 package com.finance.backend_api.models;
 
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,6 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.UUID;
 
 @Table
 @Setter
