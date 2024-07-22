@@ -24,12 +24,10 @@ spring:
     contact-points: ${CASSANDRA_HOST}
     port: ${CASSANDRA_PORT}
     local-datacenter: ${CASSANDRA_DATACENTER}
-    username: ${CASSANDRA_USER}
-    password: ${CASSANDRA_PASSWORD}
+#    username: ${CASSANDRA_USER}
+#    password: ${CASSANDRA_PASSWORD}
     keyspace-name: ${CASSANDRA_KEYSPACE}
     schema-action: CREATE_IF_NOT_EXISTS
-
-
 server:
   server:
     port: ${PORT}
