@@ -8,11 +8,9 @@ import lombok.Setter;
 public class UserRequest {
 
     private String username;
-    private String password;
     private String email;
     private String first_name;
     private String last_name;
-    private boolean active;
     private Long company_id;
 
     public UserRequest() {

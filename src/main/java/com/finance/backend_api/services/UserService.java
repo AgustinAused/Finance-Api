@@ -1,30 +1,52 @@
 package com.finance.backend_api.services;
 
+import com.finance.backend_api.dtos.UserRequest;
+import com.finance.backend_api.exceptions.CompanyNotFoundException;
 import com.finance.backend_api.exceptions.UserExistException;
+import com.finance.backend_api.models.Company;
 import com.finance.backend_api.models.User;
+import com.finance.backend_api.repositories.CompanyRepository;
 import com.finance.backend_api.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     private final UserRepository repository;
-    private final EventService eventService;
+    private final CompanyRepository companyRepository;
 
-    public UserService(UserRepository repository, EventService service) {
+
+    public UserService(UserRepository repository, CompanyRepository companyRepository) {
         this.repository = repository;
-        this.eventService = service;
+        this.companyRepository = companyRepository;
     }
 
-    public String addUser(User user) {
+    public User addUser(UserRequest userRequest) {
         //verify if user already exists or other filters
-        repository.findByEmail(user.getEmail()).ifPresentOrElse( u -> {
+        User userSaved = null;
+        Optional<User> existingUser = repository.findByEmail(userRequest.getEmail());
+        if (existingUser.isPresent()) {
             throw new UserExistException("User already exists");
-        }, () -> {
-            User user1 = repository.save(user);
-            eventService.addEvent(user1.getUser_id(), "User created", null);
-        });
-        return "User saved successfully";
+        }
+        Optional<Company> companyOpt = companyRepository.findById(userRequest.getCompany_id());
+        if (companyOpt.isEmpty()) {
+            throw new CompanyNotFoundException("Company not found");
+        }
+        User user = new User();
+        user.setEmail(userRequest.getEmail());
+        //generate password
+        user.setPassword(generatePassword());
+        user.setActive(false);
+        user.setFirst_name(userRequest.getFirst_name());
+        user.setLast_name(userRequest.getLast_name());
+        user.setUsername(userRequest.getUsername());
+        user.setCompany(companyOpt.get());
+
+        //save user
+        userSaved = repository.save(user);
+        return userSaved;
     }
 
     public User getUserByEmail(String email) {
@@ -43,6 +65,11 @@ public class UserService {
             throw new UserExistException("User not found");
         });
         return "User updated successfully";
+    }
+
+    private String generatePassword() {
+        //generate password
+        return "password";
     }
 
 }
