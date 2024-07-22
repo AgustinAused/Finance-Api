@@ -1,6 +1,5 @@
 package com.finance.backend_api.models;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
