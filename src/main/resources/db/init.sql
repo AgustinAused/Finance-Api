@@ -1,6 +1,6 @@
 CREATE TABLE Companies (
                            company_id bigint PRIMARY KEY,
-                           name VARCHAR(255) NOT NULL,
+                           name VARCHAR(255) NOT NULL UNIQUE,
                            address TEXT,
                            phone VARCHAR(20) CHECK (phone ~ '^\+?[0-9]*$')
 );
