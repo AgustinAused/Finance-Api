@@ -1,5 +1,6 @@
 package com.finance.backend_api.models;
 
+import com.finance.backend_api.dtos.CategoryRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,5 +28,15 @@ public class Category {
 
     @Column(name = "description")
     private String description;
+
+
+    public boolean equals(CategoryRequest categoryRequest) {
+        if (categoryRequest == null) return false;
+        return this.name.equals(categoryRequest.getName()) &&
+                this.description.equals(categoryRequest.getDescription()) &&
+                this.company.getCompany_id().equals(categoryRequest.getCompanyId());
+
+
+    }
 
 }
