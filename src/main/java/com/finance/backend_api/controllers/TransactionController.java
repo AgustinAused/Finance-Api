@@ -6,10 +6,7 @@ import com.finance.backend_api.models.Transaction;
 import com.finance.backend_api.services.TransactionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/transactions")
 public class TransactionController {
@@ -39,6 +36,18 @@ public class TransactionController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+
+//    @PutMapping("/update")
+//    public ResponseEntity<?> updateTransaction(@RequestBody TransactionRequest transactionRequest) {
+//        try {
+//            Transaction transaction = transactionService.updateTransaction(transactionRequest);
+//            return ResponseEntity.status(HttpStatus.OK).body(transaction);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//        }
+//    }
+
 
 
 

@@ -27,7 +27,7 @@ public class TransactionService {
         this.categoryService = categoryService;
     }
 
-    public Transaction saveTransaction(TransactionRequest transactionRequest) throws Exception {
+    public Transaction saveTransaction(TransactionRequest transactionRequest) {
         Transaction transaction = new Transaction();
         transaction.setAmount(transactionRequest.getAmount());
         transaction.setTransaccionType(transactionRequest.getTransaction_type());
