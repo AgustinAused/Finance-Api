@@ -33,10 +33,8 @@ public class UserController {
             Map<String, String> details = new HashMap<>();
             details.put("email", userRequest.getEmail());
             details.put("username", userRequest.getUsername());
-            eventService.addEvent(userResponse.getUser_id(), "User created",details);
-        } catch (UserExistException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (CompanyNotFoundException e){
+            eventService.addEvent(userResponse.getUserId(), "User created",details);
+        } catch (UserExistException | CompanyNotFoundException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok().build();
