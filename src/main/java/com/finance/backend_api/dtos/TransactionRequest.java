@@ -22,12 +22,14 @@ public class TransactionRequest {
 //    optional
     private String receipt_url;
     private String description;
+    private Long id;
 
 
     public TransactionRequest() {
     }
 
-    public TransactionRequest(Long company_id, Long category_id, Long user_id, String transaction_type, double amount, Date date, Optional<String> receipt_url, Optional<String> description) {
+    public TransactionRequest(Optional<Long> id, Long company_id, Long category_id, Long user_id, String transaction_type, double amount, Date date, Optional<String> receipt_url, Optional<String> description) {
+        this.id = id.orElse(null);
         this.company_id = company_id;
         this.category_id = category_id;
         this.user_id = user_id;

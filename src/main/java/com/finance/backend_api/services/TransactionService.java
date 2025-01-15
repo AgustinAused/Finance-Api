@@ -53,12 +53,8 @@ public class TransactionService {
         return transactionRepository.findByCompanyId(companyId);
     }
 
-    public List<Transaction> getTransactionsByCategoryId(Long categoryId, Long companyId) {
+    public List<Transaction> getTransactionsCategoryIdAndCompanyId(Long categoryId, Long companyId) {
         return transactionRepository.findByCategoryIdAndCompanyId(categoryId, companyId);
-    }
-
-    public List<Transaction> getTransactionsByCompanyIdAndUserId(Long companyId) {
-        return transactionRepository.findByCompanyId(companyId);
     }
 
     public List<Transaction> getExpensesByCompanyId(Long companyId) {
@@ -76,6 +72,30 @@ public class TransactionService {
             return transaction.get();
         } else {
             throw new TransactionNotFoundException("Transaction not found");
+        }
+    }
+
+
+    public Transaction updateTransaction(TransactionRequest transactionReq) {
+        Optional<Transaction> transactionOpt = transactionRepository.findById(transactionReq.getId());
+
+        if (transactionOpt.isPresent()) {
+            Transaction transaction = transactionOpt.get();
+            transaction.setAmount(transactionReq.getAmount());
+            transaction.setType(transactionReq.getTransaction_type());
+            transaction.setTimestamp(transactionReq.getDate());
+            transaction.setDescription(transactionReq.getDescription());
+            transaction.setReceiptUrl(transactionReq.getReceipt_url());
+            Company company = companyService.getCompany(transactionReq.getCompany_id());
+            transaction.setCompany(company);
+            User user = userService.getUserById(transaction
+            .getUser().getId());
+            transaction.setUser(user);
+            Category category = categoryService.getCategory(transactionReq.getCategory_id());
+            transaction.setCategory(category);
+            return transactionRepository.save(transaction);
+        } else {
+            throw new TransactionNotFoundException("Transaction not exist");
         }
     }
 
