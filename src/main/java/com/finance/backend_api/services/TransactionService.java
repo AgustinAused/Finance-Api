@@ -1,21 +1,46 @@
 package com.finance.backend_api.services;
 
+import com.finance.backend_api.dtos.TransactionRequest;
+import com.finance.backend_api.exceptions.TransactionNotFoundException;
+import com.finance.backend_api.models.Category;
+import com.finance.backend_api.models.Company;
 import com.finance.backend_api.models.Transaction;
+import com.finance.backend_api.models.User;
 import com.finance.backend_api.repositories.TransactionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
+    private final CompanyService companyService;
+    private final UserService userService;
+    private final CategoryService categoryService;
 
-    public TransactionService(TransactionRepository transactionRepository) {
+    public TransactionService(TransactionRepository transactionRepository, CompanyService companyService, UserService userService, CategoryService categoryService) {
         this.transactionRepository = transactionRepository;
+        this.companyService = companyService;
+        this.userService = userService;
+        this.categoryService = categoryService;
     }
 
-    public Transaction saveTransaction(Transaction transaction) {
+    public Transaction saveTransaction(TransactionRequest transactionRequest) throws Exception {
+        Transaction transaction = new Transaction();
+        transaction.setAmount(transactionRequest.getAmount());
+        transaction.setTransaccion_type(transactionRequest.getTransaction_type());
+        transaction.setTimestamp(transactionRequest.getDate());
+        transaction.setDescription(transactionRequest.getDescription());
+        transaction.setReceipt_url(transactionRequest.getReceipt_url());
+
+        Company company = companyService.getCompany(transactionRequest.getCompany_id());
+        transaction.setCompany(company);
+        User user = userService.getUserById(transactionRequest.getUser_id());
+        transaction.setUser(user);
+        Category category = categoryService.getCategory(transactionRequest.getCategory_id());
+        transaction.setCategory(category);
         return transactionRepository.save(transaction);
     }
 
@@ -43,6 +68,17 @@ public class TransactionService {
     public List<Transaction> getIncomesByCompanyId(Long companyId) {
         return transactionRepository.findByCompanyIdAndTransactionType(companyId, "income");
     }
+
+    public Transaction deleteTransaction(Long transactionId) throws Exception {
+        Optional<Transaction> transaction = transactionRepository.findById(transactionId);
+        if (transaction.isPresent()) {
+            transactionRepository.delete(transaction.get());
+            return transaction.get();
+        } else {
+            throw new TransactionNotFoundException("Transaction not found");
+        }
+    }
+
 
 
 

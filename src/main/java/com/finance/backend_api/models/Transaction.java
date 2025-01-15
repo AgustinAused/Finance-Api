@@ -1,10 +1,19 @@
 package com.finance.backend_api.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
+@Table(name = "transactions")
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Transaction {
 
     @Id
@@ -38,5 +47,7 @@ public class Transaction {
 
     @Column(name = "receipt_url", columnDefinition = "VARCHAR(255) CHECK (receipt_url ~* '^(http|https)://')")
     private String receipt_url;
+
+
 
 }
