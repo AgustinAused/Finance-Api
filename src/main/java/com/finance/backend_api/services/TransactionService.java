@@ -49,25 +49,25 @@ public class TransactionService {
     }
 
 
-//    public List<Transaction> getTransactionsByCompanyId(Long companyId) {
-//        return transactionRepository.findByCompanyId(companyId);
-//    }
-//
-//    public List<Transaction> getTransactionsByCategoryId(Long categoryId, Long companyId) {
-//        return transactionRepository.findByCategoryIdAndCompany(categoryId, companyId);
-//    }
-//
-//    public List<Transaction> getTransactionsByCompanyIdAndUserId(Long companyId) {
-//        return transactionRepository.findByCompanyId(companyId);
-//    }
-//
-//    public List<Transaction> getExpensesByCompanyId(Long companyId) {
-//        return transactionRepository.findByCompanyIdAndTransacionType(companyId, "expense");
-//    }
-//
-//    public List<Transaction> getIncomesByCompanyId(Long companyId) {
-//        return transactionRepository.findByCompanyIdAndTransacionType(companyId, "income");
-//    }
+    public List<Transaction> getTransactionsByCompanyId(Long companyId) {
+        return transactionRepository.findByCompanyId(companyId);
+    }
+
+    public List<Transaction> getTransactionsByCategoryId(Long categoryId, Long companyId) {
+        return transactionRepository.findByCategoryIdAndCompanyId(categoryId, companyId);
+    }
+
+    public List<Transaction> getTransactionsByCompanyIdAndUserId(Long companyId) {
+        return transactionRepository.findByCompanyId(companyId);
+    }
+
+    public List<Transaction> getExpensesByCompanyId(Long companyId) {
+        return transactionRepository.findByCompanyIdAndType(companyId, "expense");
+    }
+
+    public List<Transaction> getIncomesByCompanyId(Long companyId) {
+        return transactionRepository.findByCompanyIdAndType(companyId, "income");
+    }
 
     public Transaction deleteTransaction(Long transactionId) throws Exception {
         Optional<Transaction> transaction = transactionRepository.findById(transactionId);
