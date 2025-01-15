@@ -14,7 +14,7 @@ public class FileController {
 
     private static final String UPLOAD_DIR = "/uploads/";
 
-    @PostMapping("/upload")
+    @PostMapping("/")
     public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
         Files.copy(file.getInputStream(), Paths.get(UPLOAD_DIR + fileName));
@@ -22,7 +22,7 @@ public class FileController {
     }
 
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/")
     public String deleteFile(@RequestParam("url") String url) throws IOException {
         String fileName = url.substring(url.lastIndexOf("/") + 1);
         Files.deleteIfExists(Paths.get(UPLOAD_DIR + fileName));
