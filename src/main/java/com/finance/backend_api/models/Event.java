@@ -16,7 +16,7 @@ import java.util.Map;
 public class Event {
 
     @PrimaryKey
-    private Long eventId;
+    private Long id;
     private Long userId;
     private String eventType;
     private Date timestamp;

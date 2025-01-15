@@ -16,7 +16,7 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long companyId;
+    private Long id;
 
     @Column(name = "name")
     private String name;
