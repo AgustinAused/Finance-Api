@@ -17,7 +17,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long category_id;
+    private Long categoryId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -34,7 +34,7 @@ public class Category {
         if (categoryRequest == null) return false;
         return this.name.equals(categoryRequest.getName()) &&
                 this.description.equals(categoryRequest.getDescription()) &&
-                this.company.getCompany_id().equals(categoryRequest.getCompanyId());
+                this.company.getCompanyId().equals(categoryRequest.getCompanyId());
 
 
     }

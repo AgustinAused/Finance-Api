@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "username")
     private String username;
@@ -28,10 +28,10 @@ public class User {
     private String email;
 
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
 
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
 
     @Column(name = "active")
     private boolean active;

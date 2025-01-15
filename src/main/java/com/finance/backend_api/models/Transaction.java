@@ -18,7 +18,7 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long transaccion_id;
+    private Long transaccionId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -32,7 +32,7 @@ public class Transaction {
     private double amount;
 
     @Column(name = "transaction_type", nullable = false)
-    private String transaccion_type;
+    private String transaccionType;
 
     @Column(name = "timestamp", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date timestamp;
@@ -46,7 +46,7 @@ public class Transaction {
     private String description;
 
     @Column(name = "receipt_url", columnDefinition = "VARCHAR(255) CHECK (receipt_url ~* '^(http|https)://')")
-    private String receipt_url;
+    private String receiptUrl;
 
 
 

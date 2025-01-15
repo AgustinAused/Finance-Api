@@ -16,8 +16,8 @@ import java.util.Map;
 public class AnalyticsReport {
 
     @PrimaryKey
-    private Long report_id;
-    private Long Company_id;
+    private Long reportId;
+    private Long CompanyId;
     private String period;
     private Map<String, Double> data;
 
