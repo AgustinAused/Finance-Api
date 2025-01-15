@@ -26,11 +26,11 @@ spring:
 server:
   server:
     port: ${PORT}
-swagger:
-  api:
-    title: Backend API
-    description: Backend API
-    version: 1.0
-    contact:
-      name: Backend API
-      email: ${SWAGGER_EMAIL}
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /docs/swagger-ui
+
