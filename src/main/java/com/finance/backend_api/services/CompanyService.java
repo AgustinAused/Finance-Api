@@ -33,7 +33,7 @@ public class CompanyService {
         company.setPhone(companyRequest.getPhone());
         company.setAddress(companyRequest.getAddress());
 
-        Long id = repository.save(company).getCompany_id();
+        Long id = repository.save(company).getCompanyId();
         return id;
     }
 
@@ -46,7 +46,7 @@ public class CompanyService {
         company1.setName(companyRequest.getName());
         company1.setPhone(companyRequest.getPhone());
         company1.setAddress(companyRequest.getAddress());
-        return repository.save(company1).getCompany_id();
+        return repository.save(company1).getCompanyId();
     }
 
     public void deleteCompany(Long id){

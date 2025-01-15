@@ -39,8 +39,8 @@ public class UserService {
         //generate password
         user.setPassword(generatePassword());
         user.setActive(false);
-        user.setFirst_name(userRequest.getFirst_name());
-        user.setLast_name(userRequest.getLast_name());
+        user.setFirstName(userRequest.getFirst_name());
+        user.setLastName(userRequest.getLast_name());
         user.setUsername(userRequest.getUsername());
         user.setCompany(companyOpt.get());
 

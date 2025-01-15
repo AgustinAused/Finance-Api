@@ -19,8 +19,8 @@ public class EventService {
     public String addEvent(Long userId, String eventType, Map<String, String> details) {
         Event savedEvent = new Event();
         //set event properties
-        savedEvent.setUser_id(userId);
-        savedEvent.setEvent_type(eventType);
+        savedEvent.setUserId(userId);
+        savedEvent.setEventType(eventType);
         savedEvent.setTimestamp(new Date());
         savedEvent.setDetails(details);
         //save event

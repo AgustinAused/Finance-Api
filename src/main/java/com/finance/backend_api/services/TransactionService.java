@@ -30,10 +30,10 @@ public class TransactionService {
     public Transaction saveTransaction(TransactionRequest transactionRequest) throws Exception {
         Transaction transaction = new Transaction();
         transaction.setAmount(transactionRequest.getAmount());
-        transaction.setTransaccion_type(transactionRequest.getTransaction_type());
+        transaction.setTransaccionType(transactionRequest.getTransaction_type());
         transaction.setTimestamp(transactionRequest.getDate());
         transaction.setDescription(transactionRequest.getDescription());
-        transaction.setReceipt_url(transactionRequest.getReceipt_url());
+        transaction.setReceiptUrl(transactionRequest.getReceipt_url());
 
         Company company = companyService.getCompany(transactionRequest.getCompany_id());
         transaction.setCompany(company);
