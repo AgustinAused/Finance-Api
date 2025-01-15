@@ -31,7 +31,7 @@ public class Transaction {
     @Column(name = "amount", nullable = false, columnDefinition = "DECIMAL(10,2)")
     private double amount;
 
-    @Column(name = "transaction_type", nullable = false)
+    @Column(name = "type", nullable = false)
     private String type;
 
     @Column(name = "timestamp", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
