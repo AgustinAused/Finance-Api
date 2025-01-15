@@ -40,7 +40,7 @@ public class UserController {
             details.put("email", userRequest.getEmail());
             details.put("username", userRequest.getUsername());
 
-            eventService.addEvent(userResponse.getId(), "User created", details);
+//            eventService.addEvent(userResponse.getId(), "User created", details);
 
             logger.info("User created successfully: {}", userResponse.getId());
             return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("status", "success", "data", userResponse));
