@@ -75,7 +75,13 @@ public class CompanyService {
     }
 
 
-
-
-
+    public Company findOrCreateCompany(String companyName) {
+        Optional<Company> company = repository.findByName(companyName);
+        if (company.isPresent()) {
+            return company.get();
+        }
+        Company newCompany = new Company();
+        newCompany.setName(companyName);
+        return repository.save(newCompany);
+    }
 }
