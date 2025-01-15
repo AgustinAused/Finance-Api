@@ -30,7 +30,7 @@ public class TransactionService {
     public Transaction saveTransaction(TransactionRequest transactionRequest) {
         Transaction transaction = new Transaction();
         transaction.setAmount(transactionRequest.getAmount());
-        transaction.setTransaccionType(transactionRequest.getTransaction_type());
+        transaction.setType(transactionRequest.getTransaction_type());
         transaction.setTimestamp(transactionRequest.getDate());
         transaction.setDescription(transactionRequest.getDescription());
         transaction.setReceiptUrl(transactionRequest.getReceipt_url());
@@ -49,25 +49,25 @@ public class TransactionService {
     }
 
 
-    public List<Transaction> getTransactionsByCompanyId(Long companyId) {
-        return transactionRepository.findByCompanyId(companyId);
-    }
-
-    public List<Transaction> getTransactionsByCategoryId(Long categoryId, Long companyId) {
-        return transactionRepository.findByCategoryIdAndCompany(categoryId, companyId);
-    }
-
-    public List<Transaction> getTransactionsByCompanyIdAndUserId(Long companyId) {
-        return transactionRepository.findByCompanyId(companyId);
-    }
-
-    public List<Transaction> getExpensesByCompanyId(Long companyId) {
-        return transactionRepository.findByCompanyIdAndTransactionType(companyId, "expense");
-    }
-
-    public List<Transaction> getIncomesByCompanyId(Long companyId) {
-        return transactionRepository.findByCompanyIdAndTransactionType(companyId, "income");
-    }
+//    public List<Transaction> getTransactionsByCompanyId(Long companyId) {
+//        return transactionRepository.findByCompanyId(companyId);
+//    }
+//
+//    public List<Transaction> getTransactionsByCategoryId(Long categoryId, Long companyId) {
+//        return transactionRepository.findByCategoryIdAndCompany(categoryId, companyId);
+//    }
+//
+//    public List<Transaction> getTransactionsByCompanyIdAndUserId(Long companyId) {
+//        return transactionRepository.findByCompanyId(companyId);
+//    }
+//
+//    public List<Transaction> getExpensesByCompanyId(Long companyId) {
+//        return transactionRepository.findByCompanyIdAndTransacionType(companyId, "expense");
+//    }
+//
+//    public List<Transaction> getIncomesByCompanyId(Long companyId) {
+//        return transactionRepository.findByCompanyIdAndTransacionType(companyId, "income");
+//    }
 
     public Transaction deleteTransaction(Long transactionId) throws Exception {
         Optional<Transaction> transaction = transactionRepository.findById(transactionId);

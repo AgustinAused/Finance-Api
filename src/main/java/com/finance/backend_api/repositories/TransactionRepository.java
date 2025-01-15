@@ -9,11 +9,11 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    List<Transaction> findByCompanyId(Long companyId);
+    List<Transaction> findByCompanyCompanyId(Long companyId);
 
-    List<Transaction> findByCompanyIdAndTransactionType(Long companyId, String transactionType);
+    List<Transaction> findByCompanyCompanyIdAndTransacionType(Long companyId, String transactionType);
 
-    List<Transaction> findByCategoryIdAndCompany(Long categoryId, Long companyId);
+    List<Transaction> findByCategoryCategoryIdAndCompanyCompanyId(Long categoryId, Long companyId);
     // custom method
 
 }

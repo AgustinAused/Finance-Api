@@ -33,7 +33,7 @@ public class CompanyService {
         company.setPhone(companyRequest.getPhone());
         company.setAddress(companyRequest.getAddress());
 
-        return repository.save(company).getCompanyId();
+        return repository.save(company).getId();
     }
 
     public Long updateCompany(CompanyRequest companyRequest){
@@ -45,7 +45,7 @@ public class CompanyService {
         company1.setName(companyRequest.getName());
         company1.setPhone(companyRequest.getPhone());
         company1.setAddress(companyRequest.getAddress());
-        return repository.save(company1).getCompanyId();
+        return repository.save(company1).getId();
     }
 
     public void deleteCompany(Long id){
