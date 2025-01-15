@@ -61,4 +61,13 @@ public class CategoryService {
         category.get().setDescription(categoryRequest.getDescription());
         repository.save(category.get());
     }
+
+
+    public Category getCategory(Long id){
+        Optional<Category> category = repository.findById(id);
+        if (category.isEmpty()){
+            throw new CategoryNotFoundException("This category does not exist");
+        }
+        return category.get();
+    }
 }
