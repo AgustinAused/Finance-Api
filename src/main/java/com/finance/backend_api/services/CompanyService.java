@@ -33,8 +33,7 @@ public class CompanyService {
         company.setPhone(companyRequest.getPhone());
         company.setAddress(companyRequest.getAddress());
 
-        Long id = repository.save(company).getCompanyId();
-        return id;
+        return repository.save(company).getCompanyId();
     }
 
     public Long updateCompany(CompanyRequest companyRequest){

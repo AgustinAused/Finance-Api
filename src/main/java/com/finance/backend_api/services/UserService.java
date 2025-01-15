@@ -25,7 +25,6 @@ public class UserService {
 
     public User addUser(UserRequest userRequest) {
         //verify if user already exists or other filters
-        User userSaved = null;
         Optional<User> existingUser = repository.findByEmail(userRequest.getEmail());
         if (existingUser.isPresent()) {
             throw new UserExistException("User already exists");
@@ -45,8 +44,7 @@ public class UserService {
         user.setCompany(companyOpt.get());
 
         //save user
-        userSaved = repository.save(user);
-        return userSaved;
+        return repository.save(user);
     }
 
     public User getUserByEmail(String email) {
@@ -63,9 +61,7 @@ public class UserService {
     }
 
     public String updateUser(User user) {
-        repository.findByEmail(user.getEmail()).ifPresentOrElse( u -> {
-            repository.save(user);
-        }, () -> {
+        repository.findByEmail(user.getEmail()).ifPresentOrElse( u -> repository.save(user), () -> {
             throw new UserExistException("User not found");
         });
         return "User updated successfully";
