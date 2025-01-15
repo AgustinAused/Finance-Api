@@ -55,4 +55,59 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
         }
     }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<Object> getUserByEmail(@PathVariable String email) {
+        try {
+            logger.info("Getting user by email: {}", email);
+
+            User userResponse = userService.getUserByEmail(email);
+
+            logger.info("User found: {}", userResponse.getId());
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("status", "success", "data", userResponse));
+        } catch (UserExistException e) {
+            logger.warn("User not found: {}", email, e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Unexpected error while getting user: {}", email, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        }
+    }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<Object> deleteUserByEmail(@PathVariable String email) {
+        try {
+            logger.info("Deleting user by email: {}", email);
+
+            String response = userService.deleteUserByEmail(email);
+
+            logger.info("User deleted successfully: {}", email);
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("status", "success", "data", response));
+        } catch (UserExistException e) {
+            logger.warn("User not found: {}", email, e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Unexpected error while deleting user: {}", email, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        }
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<Object> updateUser(@RequestBody User user) {
+        try {
+            logger.info("Updating user: {}", user.getEmail());
+
+            String response = userService.updateUser(user);
+
+            logger.info("User updated successfully: {}", user.getId());
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("status", "success", "data", response));
+        } catch (UserExistException e) {
+            logger.warn("User not found: {}", user.getEmail(), e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Unexpected error while updating user: {}", user.getEmail(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        }
+    }
+
 }

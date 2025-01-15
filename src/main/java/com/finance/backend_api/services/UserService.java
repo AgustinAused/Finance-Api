@@ -3,6 +3,7 @@ package com.finance.backend_api.services;
 import com.finance.backend_api.dtos.UserRequest;
 import com.finance.backend_api.exceptions.CompanyNotFoundException;
 import com.finance.backend_api.exceptions.UserExistException;
+import com.finance.backend_api.exceptions.UserNotFoundException;
 import com.finance.backend_api.models.Company;
 import com.finance.backend_api.models.User;
 import com.finance.backend_api.repositories.CompanyRepository;
@@ -15,35 +16,33 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository repository;
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
 
-    public UserService(UserRepository repository, CompanyRepository companyRepository) {
+    public UserService(UserRepository repository, CompanyService companyService) {
         this.repository = repository;
-        this.companyRepository = companyRepository;
+        this.companyService = companyService;
     }
 
     public User addUser(UserRequest userRequest) {
-        //verify if user already exists or other filters
+        // Verificar si el usuario ya existe
         Optional<User> existingUser = repository.findByEmail(userRequest.getEmail());
         if (existingUser.isPresent()) {
             throw new UserExistException("User already exists");
         }
-        Optional<Company> companyOpt = companyRepository.findById(userRequest.getCompany_id());
-        if (companyOpt.isEmpty()) {
-            throw new CompanyNotFoundException("Company not found");
-        }
+        // Verificar si la empresa existe, si no la crea
+        Company companyOpt = companyService.findOrCreateCompany(userRequest.getCompanyName());
         User user = new User();
         user.setEmail(userRequest.getEmail());
-        //generate password
+        //genera password
         user.setPassword(generatePassword());
         user.setActive(false);
         user.setFirstName(userRequest.getFirst_name());
         user.setLastName(userRequest.getLast_name());
         user.setUsername(userRequest.getUsername());
-        user.setCompany(companyOpt.get());
+        user.setCompany(companyOpt);
 
-        //save user
+        //guardar usuario
         return repository.save(user);
     }
 
@@ -62,10 +61,38 @@ public class UserService {
 
     public String updateUser(User user) {
         repository.findByEmail(user.getEmail()).ifPresentOrElse( u -> repository.save(user), () -> {
-            throw new UserExistException("User not found");
+            throw new UserNotFoundException("User not found");
         });
         return "User updated successfully";
     }
+
+
+    public User activateUser(String email) {
+        User user = getUserByEmail(email);
+        user.setActive(true);
+        return repository.save(user);
+    }
+
+
+    public User deactivateUser(String email) {
+        User user = getUserByEmail(email);
+        user.setActive(false);
+        return repository.save(user);
+    }
+
+    public User assignUserToCompany(String email, String companyName) {
+        User user = getUserByEmail(email);
+        Company company = companyService.findOrCreateCompany(companyName);
+        user.setCompany(company);
+        return repository.save(user);
+    }
+    public User assignUserToCompany(String email, long companyId) {
+        User user = getUserByEmail(email);
+        Company company = companyService.getCompany(companyId);
+        user.setCompany(company);
+        return repository.save(user);
+    }
+
 
     private String generatePassword() {
         //generate password
