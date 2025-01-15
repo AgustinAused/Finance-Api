@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/api/transactions")
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/transactions")
 public class TransactionController {
 
     private final TransactionService transactionService;
@@ -17,38 +20,25 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<?> addTransaction(@RequestBody TransactionRequest transactionRequest) {
-        try {
-            Transaction transaction = transactionService.saveTransaction(transactionRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).body(transaction);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+        Transaction transaction = transactionService.saveTransaction(transactionRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                Map.of("status", "success", "data", transaction)
+        );
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity<?> deleteTransaction(@RequestParam Long transactionId) {
-        try {
-            Transaction transaction = transactionService.deleteTransaction(transactionId);
-            return ResponseEntity.status(HttpStatus.OK).body(transaction);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTransaction(@PathVariable Long id) {
+        transactionService.deleteTransaction(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-
-//    @PutMapping("/update")
-//    public ResponseEntity<?> updateTransaction(@RequestBody TransactionRequest transactionRequest) {
-//        try {
-//            Transaction transaction = transactionService.updateTransaction(transactionRequest);
-//            return ResponseEntity.status(HttpStatus.OK).body(transaction);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//        }
-//    }
-
-
-
-
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateTransaction(@PathVariable Long id, @RequestBody TransactionRequest transactionRequest) {
+        Transaction transaction = transactionService.updateTransaction(id, transactionRequest);
+        return ResponseEntity.ok(
+                Map.of("status", "success", "data", transaction)
+        );
+    }
 }

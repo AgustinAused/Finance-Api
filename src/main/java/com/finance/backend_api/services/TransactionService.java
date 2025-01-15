@@ -65,19 +65,18 @@ public class TransactionService {
         return transactionRepository.findByCompanyIdAndType(companyId, "income");
     }
 
-    public Transaction deleteTransaction(Long transactionId) throws Exception {
+    public Transaction deleteTransaction(Long transactionId){
         Optional<Transaction> transaction = transactionRepository.findById(transactionId);
-        if (transaction.isPresent()) {
-            transactionRepository.delete(transaction.get());
-            return transaction.get();
-        } else {
+        if (transaction.isEmpty()) {
             throw new TransactionNotFoundException("Transaction not found");
         }
+        transactionRepository.deleteById(transactionId);
+        return transaction.get();
     }
 
 
-    public Transaction updateTransaction(TransactionRequest transactionReq) {
-        Optional<Transaction> transactionOpt = transactionRepository.findById(transactionReq.getId());
+    public Transaction updateTransaction(Long transactionId,TransactionRequest transactionReq) {
+        Optional<Transaction> transactionOpt = transactionRepository.findById(transactionId);
 
         if (transactionOpt.isPresent()) {
             Transaction transaction = transactionOpt.get();
