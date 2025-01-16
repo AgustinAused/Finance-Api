@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -41,4 +42,41 @@ public class TransactionController {
                 Map.of("status", "success", "data", transaction)
         );
     }
+
+
+
+//    get transaction
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getTransactionByCompanyId(@PathVariable Long id) {
+        List<Transaction> transactionList = transactionService.getExpensesByCompanyId(id);
+        return ResponseEntity.ok(
+                Map.of("status", "success", "data", transactionList)
+        );
+    }
+
+    @GetMapping("/{id}/expenses")
+    public ResponseEntity<?> getExpenses(@PathVariable Long id) {
+        List<Transaction> transactionList = transactionService.getExpensesByCompanyId(id);
+        return ResponseEntity.ok(
+                Map.of("status", "success", "data", transactionList)
+        );
+    }
+
+    @GetMapping("/{id}/income")
+    public ResponseEntity<?> getIncome(@PathVariable Long id) {
+        List<Transaction> transactionList = transactionService.getIncomesByCompanyId(id);
+        return ResponseEntity.ok(
+                Map.of("status", "success", "data", transactionList)
+        );
+    }
+
+    @GetMapping("/{id}/{categoryId}")
+    public ResponseEntity<?> getTransactionByCategory(@PathVariable Long id, @PathVariable Long categoryId) {
+        List<Transaction> transactionList = transactionService.getTransactionsCategoryIdAndCompanyId(categoryId, id);
+        return ResponseEntity.ok(
+                Map.of("status", "success", "data", transactionList)
+        );
+    }
+
+
 }
