@@ -1,8 +1,5 @@
 # Imports
 spring:
-  web:
-    resources:
-      static-locations: ./uploads/
   config:
     import: classpath:env.properties
     profiles: ${PROFILE_ACTIVE}
