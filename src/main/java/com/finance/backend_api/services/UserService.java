@@ -1,12 +1,10 @@
 package com.finance.backend_api.services;
 
-import com.finance.backend_api.dtos.UserRequest;
-import com.finance.backend_api.exceptions.CompanyNotFoundException;
+import com.finance.backend_api.request.UserRequest;
 import com.finance.backend_api.exceptions.UserExistException;
 import com.finance.backend_api.exceptions.UserNotFoundException;
 import com.finance.backend_api.models.Company;
 import com.finance.backend_api.models.User;
-import com.finance.backend_api.repositories.CompanyRepository;
 import com.finance.backend_api.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 

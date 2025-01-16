@@ -1,6 +1,6 @@
 package com.finance.backend_api.services;
 
-import com.finance.backend_api.dtos.CategoryRequest;
+import com.finance.backend_api.request.CategoryRequest;
 import com.finance.backend_api.exceptions.CategoryEquals;
 import com.finance.backend_api.exceptions.CategoryNotFoundException;
 import com.finance.backend_api.exceptions.CompanyNotFoundException;

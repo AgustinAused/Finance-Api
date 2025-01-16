@@ -1,6 +1,6 @@
 package com.finance.backend_api.controllers;
 
-import com.finance.backend_api.dtos.UserRequest;
+import com.finance.backend_api.request.UserRequest;
 import com.finance.backend_api.exceptions.CompanyNotFoundException;
 import com.finance.backend_api.exceptions.UserExistException;
 import com.finance.backend_api.models.User;

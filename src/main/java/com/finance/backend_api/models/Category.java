@@ -1,6 +1,6 @@
 package com.finance.backend_api.models;
 
-import com.finance.backend_api.dtos.CategoryRequest;
+import com.finance.backend_api.request.CategoryRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.finance.backend_api.services;
 
-import com.finance.backend_api.dtos.TransactionRequest;
+import com.finance.backend_api.request.TransactionRequest;
 import com.finance.backend_api.exceptions.TransactionNotFoundException;
 import com.finance.backend_api.models.Category;
 import com.finance.backend_api.models.Company;

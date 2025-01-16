@@ -1,6 +1,6 @@
 package com.finance.backend_api.services;
 
-import com.finance.backend_api.dtos.CompanyRequest;
+import com.finance.backend_api.request.CompanyRequest;
 import com.finance.backend_api.exceptions.CompanyExistException;
 import com.finance.backend_api.exceptions.CompanyNotFoundException;
 import com.finance.backend_api.models.Company;

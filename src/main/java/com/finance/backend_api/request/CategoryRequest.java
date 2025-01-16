@@ -1,6 +1,5 @@
-package com.finance.backend_api.dtos;
+package com.finance.backend_api.request;
 
-import com.finance.backend_api.services.CategoryService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

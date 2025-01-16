@@ -1,4 +1,4 @@
-package com.finance.backend_api.dtos;
+package com.finance.backend_api.request;
 
 import lombok.Getter;
 import lombok.Setter;
