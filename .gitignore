@@ -68,4 +68,4 @@ docker-compose.yml
 
 # Upload files
 ./uploads/
-
+/uploads/
