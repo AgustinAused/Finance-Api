@@ -24,11 +24,9 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
-    private final EventService eventService;
 
-    public UserController(UserService userService, EventService eventService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.eventService = eventService;
     }
 
     @PostMapping("/")
@@ -41,8 +39,6 @@ public class UserController {
             Map<String, String> details = new HashMap<>();
             details.put("email", userRequest.getEmail());
             details.put("username", userRequest.getUsername());
-
-//            eventService.addEvent(userResponse.getId(), "User created", details);
 
             logger.info("User created successfully: {}", userResponse.getId());
             return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("status", "success", "data", userResponse));
