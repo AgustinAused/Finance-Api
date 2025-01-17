@@ -43,11 +43,6 @@ public class AuthController {
             logger.error("Authentication failed for email: {}", authRequest.getEmail(), ex);
             return ResponseEntity.status(401).body("Invalid email or password");
         }
-
-
-
-
-
     }
 
 }

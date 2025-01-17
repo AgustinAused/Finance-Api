@@ -6,21 +6,20 @@ import com.finance.backend_api.exceptions.UserNotFoundException;
 import com.finance.backend_api.models.Company;
 import com.finance.backend_api.models.User;
 import com.finance.backend_api.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository repository;
     private final CompanyService companyService;
+    private final PasswordEncoder passwordEncoder;
 
-
-    public UserService(UserRepository repository, CompanyService companyService) {
-        this.repository = repository;
-        this.companyService = companyService;
-    }
 
     public User addUser(UserRequest userRequest) {
         // Verificar si el usuario ya existe
@@ -94,7 +93,7 @@ public class UserService {
 
     private String generatePassword() {
         //generate password
-        return "password";
+        return passwordEncoder.encode("password");
     }
 
 }
