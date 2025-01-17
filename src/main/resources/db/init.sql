@@ -19,7 +19,7 @@ CREATE TABLE Users (
 
 
 CREATE TABLE Categories (
-                            id bigint PRIMARY KEY,
+                            id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                             company_id bigint,
                             name VARCHAR(255) NOT NULL,
                             description TEXT,
@@ -27,7 +27,7 @@ CREATE TABLE Categories (
 );
 
 CREATE TABLE Transactions (
-                              id bigint PRIMARY KEY,
+                              id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                               company_id bigint,
                               user_id bigint,
                               amount DECIMAL(10, 2) NOT NULL CHECK (amount >= 0),
