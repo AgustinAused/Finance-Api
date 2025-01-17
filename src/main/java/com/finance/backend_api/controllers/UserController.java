@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> addUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<?> addUser(@RequestBody UserRequest userRequest) {
         try {
             logger.info("Adding new user: {}", userRequest.getEmail());
 
@@ -59,7 +59,7 @@ public class UserController {
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<Object> getUserByEmail(@PathVariable String email) {
+    public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
         try {
             logger.info("Getting user by email: {}", email);
 
@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{email}")
-    public ResponseEntity<Object> deleteUserByEmail(@PathVariable String email) {
+    public ResponseEntity<?> deleteUserByEmail(@PathVariable String email) {
         try {
             logger.info("Deleting user by email: {}", email);
 
@@ -95,7 +95,7 @@ public class UserController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Object> updateUser(@RequestBody User user) {
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
         try {
             logger.info("Updating user: {}", user.getEmail());
 
