@@ -2,6 +2,7 @@ package com.finance.backend_api.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,6 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -61,5 +65,34 @@ public class FileController {
             logger.error("Failed to delete file: {}", fileName, e);
             throw e;
         }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<?> getFiles() {
+        logger.info("Received a request to list all files in the upload directory.");
+
+        File uploadDir = new File(UPLOAD_DIR);
+        if (!uploadDir.exists()) {
+            logger.info("Upload directory does not exist. No files to list.");
+            return ResponseEntity.noContent().build();
+        }
+
+        File[] files = uploadDir.listFiles();
+        if (files == null || files.length == 0) {
+            logger.info("No files found in the upload directory.");
+            return ResponseEntity.notFound().build();
+        }
+
+        List<String> fileLinks = new ArrayList<>();
+        for (File file : files) {
+            String fileLink = "http://localhost:8080/uploads/" + file.getName();
+            fileLinks.add(fileLink);
+        }
+
+
+        logger.info("Returning list of files in the upload directory.");
+        return ResponseEntity.ok(
+                Map.of("status", "success", "data", fileLinks)
+        );
     }
 }
