@@ -3,8 +3,6 @@ package com.finance.backend_api.controllers;
 import com.finance.backend_api.models.Category;
 import com.finance.backend_api.request.CategoryRequest;
 import com.finance.backend_api.services.CategoryService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +24,7 @@ public class CategoryController {
 //    agregar categoría
     @PostMapping("/")
     public ResponseEntity<?> addCategory(@RequestBody CategoryRequest categoryRequest){
-         Category newCategory= categoryService.addCategory(categoryRequest);
+        Category newCategory= categoryService.addCategory(categoryRequest);
         return ResponseEntity.ok().body(Map.of("Status", "success", "data", newCategory, "path", "/api/categories"));
     }
 
