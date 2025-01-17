@@ -10,7 +10,9 @@ import com.finance.backend_api.repositories.CategoryRepository;
 import com.finance.backend_api.repositories.CompanyRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 @Service
 public class CategoryService {
@@ -25,7 +27,7 @@ public class CategoryService {
 
     //Method CRUD
 
-    public void addCategory(CategoryRequest categoryRequest){
+    public Category addCategory(CategoryRequest categoryRequest){
         Category category = new Category();
         Optional<Company> company = companyRepository.findById(categoryRequest.getCompanyId());
         if (company.isEmpty()){
@@ -34,18 +36,20 @@ public class CategoryService {
         category.setCompany(company.get());
         category.setName(categoryRequest.getName());
         category.setDescription(categoryRequest.getDescription());
-        repository.save(category);
+        return repository.save(category);
     }
 
-    public void deleteCategory(Long id){
+    public Category deleteCategory(Long id){
         Optional<Category> category = repository.findById(id);
         if (category.isEmpty()){
             throw new CategoryNotFoundException("This category does not exist");
         }
+        repository.delete(category.get());
+        return category.get();
     }
 
-    public void updateCategory(CategoryRequest categoryRequest) {
-        Optional<Category> category = repository.findById(categoryRequest.getId());
+    public Category updateCategory(Long categoryId,CategoryRequest categoryRequest) {
+        Optional<Category> category = repository.findById(categoryId);
         if (category.isEmpty()) {
             throw new CategoryNotFoundException("This category does not exist");
         }
@@ -59,7 +63,7 @@ public class CategoryService {
         category.get().setCompany(company.get());
         category.get().setName(categoryRequest.getName());
         category.get().setDescription(categoryRequest.getDescription());
-        repository.save(category.get());
+        return repository.save(category.get());
     }
 
 
@@ -69,5 +73,17 @@ public class CategoryService {
             throw new CategoryNotFoundException("This category does not exist");
         }
         return category.get();
+    }
+
+    public List<Category> getCategoryByCompanyId(Long id){
+        Optional<Company> company = companyRepository.findById(id);
+        if (company.isEmpty()){
+            throw new CompanyNotFoundException("This company does not exist");
+        }
+        Optional<List<Category>> categoryList = repository.findCategoryByCompanyId(id);
+        if (categoryList.isEmpty()){
+            throw new CategoryNotFoundException("This company category list does not exist");
+        }
+        return categoryList.get();
     }
 }
