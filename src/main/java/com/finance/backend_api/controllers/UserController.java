@@ -6,6 +6,7 @@ import com.finance.backend_api.exceptions.UserExistException;
 import com.finance.backend_api.models.User;
 import com.finance.backend_api.services.EventService;
 import com.finance.backend_api.services.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
+@Tag(name = "User Controller", description = "API for managing users")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);

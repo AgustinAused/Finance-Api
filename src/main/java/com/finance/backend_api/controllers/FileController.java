@@ -1,5 +1,6 @@
 package com.finance.backend_api.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/files")
+@Tag(name = "File Controller", description = "API for managing files")
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
