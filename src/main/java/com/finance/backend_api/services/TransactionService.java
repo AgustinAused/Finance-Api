@@ -56,8 +56,7 @@ public class TransactionService {
         if (transactions.isEmpty()) {
             throw new TransactionNotFoundException("No transactions found");
         }
-//        convertir a DTO
-        List<TransactionDTO> transLst =  new ArrayList<TransactionDTO>();
+        List<TransactionDTO> transLst =  new ArrayList<>();
         for (Transaction transaction : transactions) {
             TransactionDTO transactionDTO = new TransactionDTO();
             transactionDTO.setId(transaction.getId().toString());
@@ -84,13 +83,12 @@ public class TransactionService {
         return transactionRepository.findByCompanyIdAndType(companyId, "income");
     }
 
-    public Transaction deleteTransaction(Long transactionId){
+    public void deleteTransaction(Long transactionId){
         Optional<Transaction> transaction = transactionRepository.findById(transactionId);
         if (transaction.isEmpty()) {
             throw new TransactionNotFoundException("Transaction not found");
         }
         transactionRepository.deleteById(transactionId);
-        return transaction.get();
     }
 
 

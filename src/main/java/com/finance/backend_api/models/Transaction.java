@@ -31,7 +31,7 @@ public class Transaction {
     @Column(name = "amount", nullable = false, columnDefinition = "DECIMAL(10,2)")
     private double amount;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = false, columnDefinition = "VARCHAR(255) CHECK (type IN ('income', 'expense'))")
     private String type;
 
     @Column(name = "timestamp", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
