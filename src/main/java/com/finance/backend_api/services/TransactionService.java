@@ -1,5 +1,6 @@
 package com.finance.backend_api.services;
 
+import com.finance.backend_api.DTOs.TransactionDTO;
 import com.finance.backend_api.request.TransactionRequest;
 import com.finance.backend_api.exceptions.TransactionNotFoundException;
 import com.finance.backend_api.models.Category;
@@ -9,6 +10,7 @@ import com.finance.backend_api.models.User;
 import com.finance.backend_api.repositories.TransactionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,8 +51,25 @@ public class TransactionService {
     }
 
 
-    public List<Transaction> getTransactionsByCompanyId(Long companyId) {
-        return transactionRepository.findByCompanyId(companyId);
+    public List<TransactionDTO> getTransactionsByCompanyId(Long companyId) {
+        List<Transaction> transactions = transactionRepository.findByCompanyId(companyId);
+        if (transactions.isEmpty()) {
+            throw new TransactionNotFoundException("No transactions found");
+        }
+//        convertir a DTO
+        List<TransactionDTO> transLst =  new ArrayList<TransactionDTO>();
+        for (Transaction transaction : transactions) {
+            TransactionDTO transactionDTO = new TransactionDTO();
+            transactionDTO.setId(transaction.getId().toString());
+            transactionDTO.setAmount(transaction.getAmount());
+            transactionDTO.setCreatedAt(transaction.getTimestamp().toString());
+            transactionDTO.setDescription(transaction.getDescription());
+            transactionDTO.setCategoryName(transaction.getCategory().getName());
+            transactionDTO.setUserName(transaction.getUser().getUsername());
+            transactionDTO.setType(transaction.getType());
+            transLst.add(transactionDTO);
+        }
+        return transLst;
     }
 
     public List<Transaction> getTransactionsCategoryIdAndCompanyId(Long categoryId, Long companyId) {

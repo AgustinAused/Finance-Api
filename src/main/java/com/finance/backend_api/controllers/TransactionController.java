@@ -1,6 +1,7 @@
 package com.finance.backend_api.controllers;
 
 
+import com.finance.backend_api.DTOs.TransactionDTO;
 import com.finance.backend_api.request.TransactionRequest;
 import com.finance.backend_api.models.Transaction;
 import com.finance.backend_api.services.TransactionService;
@@ -46,33 +47,33 @@ public class TransactionController {
 
 
 //    get transaction
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getTransactionByCompanyId(@PathVariable Long id) {
-        List<Transaction> transactionList = transactionService.getExpensesByCompanyId(id);
+    @GetMapping("/{companyId}")
+    public ResponseEntity<?> getTransactionByCompanyId(@PathVariable Long companyId) {
+        List<TransactionDTO> transactionList = transactionService.getTransactionsByCompanyId(companyId);
         return ResponseEntity.ok(
                 Map.of("status", "success", "data", transactionList)
         );
     }
 
-    @GetMapping("/{id}/expenses")
-    public ResponseEntity<?> getExpenses(@PathVariable Long id) {
-        List<Transaction> transactionList = transactionService.getExpensesByCompanyId(id);
+    @GetMapping("/{companyId}/expenses")
+    public ResponseEntity<?> getExpenses(@PathVariable Long companyId) {
+        List<Transaction> transactionList = transactionService.getExpensesByCompanyId(companyId);
         return ResponseEntity.ok(
                 Map.of("status", "success", "data", transactionList)
         );
     }
 
-    @GetMapping("/{id}/income")
-    public ResponseEntity<?> getIncome(@PathVariable Long id) {
-        List<Transaction> transactionList = transactionService.getIncomesByCompanyId(id);
+    @GetMapping("/{companyId}/income")
+    public ResponseEntity<?> getIncome(@PathVariable Long companyId) {
+        List<Transaction> transactionList = transactionService.getIncomesByCompanyId(companyId);
         return ResponseEntity.ok(
                 Map.of("status", "success", "data", transactionList)
         );
     }
 
-    @GetMapping("/{id}/{categoryId}")
-    public ResponseEntity<?> getTransactionByCategory(@PathVariable Long id, @PathVariable Long categoryId) {
-        List<Transaction> transactionList = transactionService.getTransactionsCategoryIdAndCompanyId(categoryId, id);
+    @GetMapping("/{companyId}/{categoryId}")
+    public ResponseEntity<?> getTransactionByCategory(@PathVariable Long companyId, @PathVariable Long categoryId) {
+        List<Transaction> transactionList = transactionService.getTransactionsCategoryIdAndCompanyId(categoryId, companyId);
         return ResponseEntity.ok(
                 Map.of("status", "success", "data", transactionList)
         );
