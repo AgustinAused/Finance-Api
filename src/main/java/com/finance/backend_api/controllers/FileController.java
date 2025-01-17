@@ -35,7 +35,7 @@ public class FileController {
             uploadDir.mkdirs();
         }
 
-        String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename().replace(" ", "_");
         try {
             Files.copy(file.getInputStream(), Paths.get(UPLOAD_DIR + fileName));
             logger.info("File successfully uploaded to: {}", UPLOAD_DIR + fileName);
