@@ -1,16 +1,17 @@
 package com.finance.backend_api.response;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 @Getter
 @Setter
 @ToString
+@Data
+@Builder
 @AllArgsConstructor
 public class AuthResponse {
 
+    @JsonProperty("access_token")
     private String jwt;
 }

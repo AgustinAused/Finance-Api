@@ -2,6 +2,7 @@ package com.finance.backend_api.controllers;
 
 import com.finance.backend_api.request.AuthRequest;
 import com.finance.backend_api.response.AuthResponse;
+import com.finance.backend_api.services.AuthenticacionService;
 import com.finance.backend_api.services.CustomUserDetailsService;
 import com.finance.backend_api.util.JwtUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,15 +24,10 @@ public class AuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    private final AuthenticationManager authenticationManager;
-    private final CustomUserDetailsService userDetailsService;
-    private final JwtUtils jwtUtils;
+    private final AuthenticacionService authenticacionService;
 
-    public AuthController(AuthenticationManager authenticationManager,
-                          CustomUserDetailsService userDetailsService, JwtUtils jwtUtils) {
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-        this.jwtUtils = jwtUtils;
+    public AuthController(AuthenticacionService authenticacionService) {
+        this.authenticacionService = authenticacionService;
     }
 
     @PostMapping("/login")
@@ -39,21 +35,19 @@ public class AuthController {
         logger.info("Authentication request received for email: {}", authRequest.getEmail());
 
         try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
-            );
+             AuthResponse res = authenticacionService.authenticate(authRequest);
             logger.info("Authentication successful for email: {}", authRequest.getEmail());
+            logger.info("JWT generated for email: {}", authRequest.getEmail());
+            return ResponseEntity.ok().body(res);
         } catch (Exception ex) {
             logger.error("Authentication failed for email: {}", authRequest.getEmail(), ex);
             return ResponseEntity.status(401).body("Invalid email or password");
         }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
-        final String jwt = jwtUtils.generateToken(userDetails);
 
-        logger.info("JWT generated for email: {}", authRequest.getEmail());
 
-        return ResponseEntity.ok(new AuthResponse(jwt));
+
+
     }
 
 }
