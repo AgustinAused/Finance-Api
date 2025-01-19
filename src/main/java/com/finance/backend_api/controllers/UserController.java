@@ -4,7 +4,6 @@ import com.finance.backend_api.request.UserRequest;
 import com.finance.backend_api.exceptions.CompanyNotFoundException;
 import com.finance.backend_api.exceptions.UserExistException;
 import com.finance.backend_api.models.User;
-import com.finance.backend_api.services.EventService;
 import com.finance.backend_api.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;

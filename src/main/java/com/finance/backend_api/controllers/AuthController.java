@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 @Tag(name = "Auth API", description = "API Endpoints for Authentication")
@@ -33,7 +35,7 @@ public class AuthController {
              AuthResponse res = authenticacionService.authenticate(authRequest);
             logger.info("Authentication successful for email: {}", authRequest.getEmail());
             logger.info("JWT generated for email: {}", authRequest.getEmail());
-            return ResponseEntity.ok().body(res);
+            return ResponseEntity.ok().body(Map.of("data", res, "status", "success"));
         } catch (Exception ex) {
             logger.error("Authentication failed for email: {}", authRequest.getEmail(), ex);
             return ResponseEntity.status(401).body("Invalid email or password");
