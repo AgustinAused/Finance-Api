@@ -22,27 +22,21 @@ public class AuthenticacionService {
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
-
     }
-
-//    public Users register(RegisterRequest request) {
-//        Users user = Users.builder().name(request.getFirstname()).last_name(request.getLastname()).email(request.getEmail()).userPassword(this.passwordEncoder.encode(request.getUserPassword())).role(request.getRole()).username(request.getUsername()).weekly_hours(request.getWeeklyHours()).skillLevel(request.getSkillLevel()).build();
-//        repository.save(user);
-//        return user;
-//    }
 
     public AuthResponse authenticate(AuthRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
+                        request.getEmail(),  // Usamos el email para autenticar
                         request.getPassword()));
 
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
-        var jwtToken = jwtUtils.generateToken(user);
+        var jwtToken = jwtUtils.generateToken(user);  // El JWT ahora tendrá el email como "sub"
         return AuthResponse.builder()
                 .jwt(jwtToken)
                 .build();
     }
 }
+
 

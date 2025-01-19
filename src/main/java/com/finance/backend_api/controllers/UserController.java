@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -106,5 +107,35 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
         }
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> getUserProfile() {
+        try {
+            // Obtener el objeto principal del SecurityContext
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            String email;
+            if (principal instanceof org.springframework.security.core.userdetails.User) {
+                // Obtener el email si el principal es un objeto UserDetails
+                email = ((org.springframework.security.core.userdetails.User) principal).getUsername();
+            } else if (principal instanceof String) {
+                // Manejar casos donde el principal es directamente un String (aunque esto es poco común en la autenticación basada en email)
+                email = (String) principal;
+            } else {
+                // Manejar cualquier otro caso (por defecto)
+                throw new IllegalStateException("Tipo de principal no soportado: " + principal.getClass().getName());
+            }
+
+            // Obtener el usuario desde la base de datos usando el email
+            User userResponse = userService.getUserByEmail(email);
+
+            // Devolver la respuesta con el perfil
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("status", "success", "data", userResponse));
+        } catch (Exception e) {
+            logger.error("Error al obtener el perfil del usuario", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        }
+    }
+
 
 }

@@ -32,7 +32,7 @@ public class AuthController {
         logger.info("Authentication request received for email: {}", authRequest.getEmail());
 
         try {
-             AuthResponse res = authenticacionService.authenticate(authRequest);
+            AuthResponse res = authenticacionService.authenticate(authRequest);
             logger.info("Authentication successful for email: {}", authRequest.getEmail());
             logger.info("JWT generated for email: {}", authRequest.getEmail());
             return ResponseEntity.ok().body(Map.of("data", res, "status", "success"));
@@ -41,5 +41,5 @@ public class AuthController {
             return ResponseEntity.status(401).body("Invalid email or password");
         }
     }
-
 }
+
