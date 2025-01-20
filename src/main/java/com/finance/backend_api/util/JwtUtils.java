@@ -29,8 +29,17 @@ public class JwtUtils {
     }
 
     private Claims extractAllClaims(String token) {
+        if (token == null || token.isEmpty()) {
+            throw new IllegalArgumentException("Token is null or empty");
+        }
+
+        // Validar que el token contenga al menos dos puntos (".")
+        if (token.chars().filter(ch -> ch == '.').count() != 2) {
+            throw new IllegalArgumentException("Token has an invalid format. Expected a JWT with 2 periods.");
+        }
+
         return Jwts.parser()
-                .setSigningKey(SECRET_KEY) // Usa directamente la clave correctamente generada
+                .setSigningKey(SECRET_KEY)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

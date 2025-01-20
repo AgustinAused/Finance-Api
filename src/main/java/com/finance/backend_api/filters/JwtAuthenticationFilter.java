@@ -36,7 +36,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
-            username = jwtUtils.extractUsername(jwt);
+
+            // Validar si el token tiene el formato correcto antes de extraer el usuario
+            if (jwt.chars().filter(ch -> ch == '.').count() == 2) {
+                username = jwtUtils.extractUsername(jwt);
+            } else {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JWT token format");
+                return;
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
