@@ -1,5 +1,6 @@
 package com.finance.backend_api.services;
 
+import com.finance.backend_api.DTOs.CategoryIncomeExpenseDTO;
 import com.finance.backend_api.DTOs.MonthlyTransactionDTO;
 import com.finance.backend_api.repositories.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,10 @@ public class GraphicService {
         List<MonthlyTransactionDTO> transactions = repository.findMonthlyTransactionsByCompany(companyId);
 
         return transactions;
+    }
+
+    public List<CategoryIncomeExpenseDTO> getIncomeAndExpenseCompanyByCategory(Long companyId) {
+        return repository.findIncomeAndExpenseCategoriesByCompany(companyId);
     }
 
 

@@ -1,5 +1,6 @@
 package com.finance.backend_api.repositories;
 
+import com.finance.backend_api.DTOs.CategoryIncomeExpenseDTO;
 import com.finance.backend_api.DTOs.MonthlyTransactionDTO;
 import com.finance.backend_api.models.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,4 +36,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "ORDER BY YEAR(t.timestamp), MONTH(t.timestamp)")
     List<MonthlyTransactionDTO> findMonthlyTransactionsByCompany(@Param("companyId") Long companyId);
 
+
+    @Query("SELECT new com.finance.backend_api.DTOs.CategoryIncomeExpenseDTO(" +
+            "c.name, " +
+            "SUM(CASE WHEN t.type = 'income' THEN t.amount ELSE 0 END), " +
+            "SUM(CASE WHEN t.type = 'expense' THEN t.amount ELSE 0 END)) " +
+            "FROM Transaction t " +
+            "JOIN t.category c " +
+            "WHERE t.company.id = :companyId " +
+            "GROUP BY c.name " +
+            "ORDER BY c.name")
+    List<CategoryIncomeExpenseDTO> findIncomeAndExpenseCategoriesByCompany(Long companyId);
 }
