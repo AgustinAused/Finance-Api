@@ -44,20 +44,20 @@ public class PeriodConvertor {
             }
         }
 
-        throw new PeriodInvalidException("Formato de periodo no válido: " + period);
+        throw new PeriodInvalidException("Formato de periodo no válido");
     }
 
     public static Date[] convertMonthYearToDateRange(String period) {
         String[] parts = period.split(" ");
         if (parts.length != 2) {
-            throw new PeriodInvalidException("Formato de mes/año inválido: " + period);
+            throw new PeriodInvalidException("Formato de mes/año inválido");
         }
         String monthName = parts[0];
         String year = parts[1];
 
         String monthNumber = monthMapping.get(monthName);
         if (monthNumber == null) {
-            throw new PeriodInvalidException("Mes no válido: " + monthName);
+            throw new PeriodInvalidException("Mes no válido");
         }
 
         LocalDate startDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(monthNumber), 1);
@@ -91,7 +91,7 @@ public class PeriodConvertor {
                 endDate = startDate.withMonth(12).withDayOfMonth(31);
                 break;
             default:
-                throw new PeriodInvalidException("Trimestre no válido: " + quarter);
+                throw new PeriodInvalidException("Trimestre no válido");
         }
 
         java.sql.Date startSqlDate = java.sql.Date.valueOf(startDate);
