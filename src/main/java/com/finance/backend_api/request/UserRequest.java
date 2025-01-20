@@ -16,7 +16,7 @@ public class UserRequest {
     public UserRequest() {
     }
 
-    public UserRequest(String username, String password, String email, String first_name, String last_name, boolean active, String companyName) {
+    public UserRequest(String username, String email, String first_name, String last_name, String companyName) {
         this.username = username;
         this.email = email;
         this.first_name = first_name;

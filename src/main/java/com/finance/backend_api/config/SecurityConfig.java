@@ -28,12 +28,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/user/").permitAll()
                         .requestMatchers(HttpMethod.GET, "/docs/swagger-ui").permitAll()
                         .requestMatchers(HttpMethod.GET, "/docs/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api-docs").permitAll()
                         .anyRequest().authenticated()
-//                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
