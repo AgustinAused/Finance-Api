@@ -1,5 +1,7 @@
 package com.finance.backend_api.util;
 
+import com.finance.backend_api.exceptions.PeriodInvalidException;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -42,20 +44,20 @@ public class PeriodConvertor {
             }
         }
 
-        throw new IllegalArgumentException("Formato de periodo no válido: " + period);
+        throw new PeriodInvalidException("Formato de periodo no válido: " + period);
     }
 
     public static Date[] convertMonthYearToDateRange(String period) {
         String[] parts = period.split(" ");
         if (parts.length != 2) {
-            throw new IllegalArgumentException("Formato de mes/año inválido: " + period);
+            throw new PeriodInvalidException("Formato de mes/año inválido: " + period);
         }
         String monthName = parts[0];
         String year = parts[1];
 
         String monthNumber = monthMapping.get(monthName);
         if (monthNumber == null) {
-            throw new IllegalArgumentException("Mes no válido: " + monthName);
+            throw new PeriodInvalidException("Mes no válido: " + monthName);
         }
 
         LocalDate startDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(monthNumber), 1);
@@ -89,7 +91,7 @@ public class PeriodConvertor {
                 endDate = startDate.withMonth(12).withDayOfMonth(31);
                 break;
             default:
-                throw new IllegalArgumentException("Trimestre no válido: " + quarter);
+                throw new PeriodInvalidException("Trimestre no válido: " + quarter);
         }
 
         java.sql.Date startSqlDate = java.sql.Date.valueOf(startDate);

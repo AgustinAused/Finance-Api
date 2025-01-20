@@ -40,13 +40,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex, WebRequest request) {
         logger.error("GeneralException: {}", ex.getMessage(), ex);
-        return buildErrorResponse("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR, request);
+        return buildErrorResponse(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException ex, WebRequest request) {
         logger.error("UserNotFoundException: {}", ex.getMessage(), ex);
         return buildErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(PeriodInvalidException.class)
+    public ResponseEntity<ErrorResponse> handlePeriodInvalidExpection(PeriodInvalidException ex, WebRequest request) {
+        logger.error("PeriodInvalidException: {}", ex.getMessage(), ex);
+        return buildErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, request);
     }
 
     private ResponseEntity<ErrorResponse> buildErrorResponse(String message, HttpStatus status, WebRequest request) {
