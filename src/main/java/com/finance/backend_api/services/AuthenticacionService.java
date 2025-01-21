@@ -4,9 +4,9 @@ import com.finance.backend_api.repositories.UserRepository;
 import com.finance.backend_api.request.AuthRequest;
 import com.finance.backend_api.response.AuthResponse;
 import com.finance.backend_api.util.JwtUtils;
+import io.jsonwebtoken.JwtException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +36,16 @@ public class AuthenticacionService {
         return AuthResponse.builder()
                 .jwt(jwtToken)
                 .build();
+    }
+
+
+    public boolean verifyToken(String token) {
+        try {
+            String username = jwtUtils.extractUsername(token);
+            return jwtUtils.validateToken(token, username);
+        } catch (JwtException ex) {
+            return false;
+        }
     }
 }
 

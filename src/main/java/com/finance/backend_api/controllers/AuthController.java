@@ -7,10 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -39,6 +36,25 @@ public class AuthController {
         } catch (Exception ex) {
             logger.error("Authentication failed for email: {}", authRequest.getEmail(), ex);
             return ResponseEntity.status(401).body("Invalid email or password");
+        }
+    }
+
+
+    @GetMapping("/verifytoken")
+    public ResponseEntity<?> verifyToken(@RequestParam String token) {
+        logger.info("Verifying token: {}", token);
+        try {
+            boolean res = authenticacionService.verifyToken(token);
+            if (res) {
+                logger.info("Token verified successfully: {}", token);
+                return ResponseEntity.ok().body(Map.of("status", "success", "message", "Token is valid"));
+            } else {
+                logger.warn("Token verification failed: {}", token);
+                return ResponseEntity.status(401).body(Map.of("status", "error", "message", "Token is invalid"));
+            }
+        } catch (Exception ex) {
+            logger.error("Token verification failed: {}", token, ex);
+            return ResponseEntity.status(401).body(Map.of("status", "error", "message", "Token is invalid"));
         }
     }
 }
