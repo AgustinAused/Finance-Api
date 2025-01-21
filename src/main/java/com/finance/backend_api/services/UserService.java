@@ -1,5 +1,7 @@
 package com.finance.backend_api.services;
 
+import com.finance.backend_api.DTOs.UserDTO;
+import com.finance.backend_api.request.ChangePasswordRequest;
 import com.finance.backend_api.request.UserRequest;
 import com.finance.backend_api.exceptions.UserExistException;
 import com.finance.backend_api.exceptions.UserNotFoundException;
@@ -21,7 +23,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public User addUser(UserRequest userRequest) {
+    public UserDTO addUser(UserRequest userRequest) {
         // Verificar si el usuario ya existe
         Optional<User> existingUser = repository.findByEmail(userRequest.getEmail());
         if (existingUser.isPresent()) {
@@ -40,7 +42,9 @@ public class UserService {
         user.setCompany(companyOpt);
 
         //guardar usuario
-        return repository.save(user);
+        User newUser = repository.save(user);
+        return new UserDTO(newUser.getId(), newUser.getEmail(), newUser.getFirstName(), newUser.getLastName(),
+                newUser.isActive(), newUser.getCompany());
     }
 
     public User getUserByEmail(String email) {
@@ -56,26 +60,25 @@ public class UserService {
         return "User deleted successfully";
     }
 
-    public String updateUser(User user) {
-        repository.findByEmail(user.getEmail()).ifPresentOrElse( u -> repository.save(user), () -> {
-            throw new UserNotFoundException("User not found");
-        });
-        return "User updated successfully";
+    public UserDTO updateUser(User user) {
+        // Buscar si el usuario existe por su email
+        User existingUser = repository.findByEmail(user.getEmail())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        // Actualizar los campos del usuario
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setUsername(user.getUsername());
+        existingUser.setEmail(user.getEmail());
+
+        // Guardar el usuario actualizado
+        existingUser = repository.save(existingUser);
+
+        // Devolver el UserDTO
+        return new UserDTO(existingUser.getId(), existingUser.getEmail(), existingUser.getFirstName(),
+                existingUser.getLastName(), existingUser.isActive(), existingUser.getCompany());
     }
 
-
-    public User activateUser(String email) {
-        User user = getUserByEmail(email);
-        user.setActive(true);
-        return repository.save(user);
-    }
-
-
-    public User deactivateUser(String email) {
-        User user = getUserByEmail(email);
-        user.setActive(false);
-        return repository.save(user);
-    }
 
     public User assignUserToCompany(String email, String companyName) {
         User user = getUserByEmail(email);
@@ -88,6 +91,29 @@ public class UserService {
         Company company = companyService.getCompany(companyId);
         user.setCompany(company);
         return repository.save(user);
+    }
+
+    public UserDTO changePassword(ChangePasswordRequest request) {
+        // Buscar al usuario
+        User user = repository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado"));
+
+        // Validar si el usuario está activo
+        if (!user.isActive()) {
+            user.setActive(true);
+        }
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        repository.save(user);
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setActive(user.isActive());
+        userDTO.setCompany(user.getCompany());
+        return userDTO;
     }
 
 

@@ -1,5 +1,7 @@
 package com.finance.backend_api.controllers;
 
+import com.finance.backend_api.DTOs.UserDTO;
+import com.finance.backend_api.request.ChangePasswordRequest;
 import com.finance.backend_api.request.UserRequest;
 import com.finance.backend_api.exceptions.CompanyNotFoundException;
 import com.finance.backend_api.exceptions.UserExistException;
@@ -34,7 +36,7 @@ public class UserController {
         try {
             logger.info("Adding new user: {}", userRequest.getEmail());
 
-            User userResponse = userService.addUser(userRequest);
+            UserDTO userResponse = userService.addUser(userRequest);
 
             Map<String, String> details = new HashMap<>();
             details.put("email", userRequest.getEmail());
@@ -95,10 +97,10 @@ public class UserController {
         try {
             logger.info("Updating user: {}", user.getEmail());
 
-            String response = userService.updateUser(user);
+            UserDTO userDTO = userService.updateUser(user);
 
             logger.info("User updated successfully: {}", user.getId());
-            return ResponseEntity.status(HttpStatus.OK).body(Map.of("status", "success", "data", response));
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("status", "success", "data", userDTO));
         } catch (UserExistException e) {
             logger.warn("User not found: {}", user.getEmail(), e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -135,6 +137,13 @@ public class UserController {
             logger.error("Error al obtener el perfil del usuario", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
         }
+    }
+
+
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
+        UserDTO user = userService.changePassword(request);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("statuss", "success", "data",user));
     }
 
 
