@@ -45,6 +45,9 @@ public class User implements UserDetails {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
+    @Column(name = "avatarurl")
+    private String avatarUrl;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

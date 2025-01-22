@@ -16,4 +16,5 @@ public class UserDTO {
     private String lastName;
     private boolean active;
     private Company company;
+    private String avatarUrl;
 }

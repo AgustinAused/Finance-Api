@@ -44,7 +44,7 @@ public class UserService {
         //guardar usuario
         User newUser = repository.save(user);
         return new UserDTO(newUser.getId(), newUser.getEmail(), newUser.getFirstName(), newUser.getLastName(),
-                newUser.isActive(), newUser.getCompany());
+                newUser.isActive(), newUser.getCompany(), newUser.getAvatarUrl());
     }
 
     public User getUserByEmail(String email) {
@@ -76,7 +76,7 @@ public class UserService {
 
         // Devolver el UserDTO
         return new UserDTO(existingUser.getId(), existingUser.getEmail(), existingUser.getFirstName(),
-                existingUser.getLastName(), existingUser.isActive(), existingUser.getCompany());
+                existingUser.getLastName(), existingUser.isActive(), existingUser.getCompany(), existingUser.getAvatarUrl());
     }
 
 

@@ -13,6 +13,7 @@ CREATE TABLE Users (
                        firstName VARCHAR(255) NOT NULL,
                        lastName VARCHAR(255) NOT NULL,
                        active BOOLEAN DEFAULT FALSE,
+                       avatarUrl VARCHAR(255) CHECK (avatarUrl ~* '^(http|https)://'),
                        company_id bigint,
                        FOREIGN KEY (company_id) REFERENCES Companies(id) ON DELETE SET NULL
 );
