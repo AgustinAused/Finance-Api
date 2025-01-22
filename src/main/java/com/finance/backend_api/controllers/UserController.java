@@ -92,14 +92,14 @@ public class UserController {
         }
     }
 
-    @PutMapping("/")
-    public ResponseEntity<?> updateUser(@RequestBody User user) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserRequest user) {
         try {
             logger.info("Updating user: {}", user.getEmail());
 
-            UserDTO userDTO = userService.updateUser(user);
+            UserDTO userDTO = userService.updateUser(id,user);
 
-            logger.info("User updated successfully: {}", user.getId());
+            logger.info("User updated successfully: {}", user.getEmail());
             return ResponseEntity.status(HttpStatus.OK).body(Map.of("status", "success", "data", userDTO));
         } catch (UserExistException e) {
             logger.warn("User not found: {}", user.getEmail(), e);
@@ -130,9 +130,11 @@ public class UserController {
 
             // Obtener el usuario desde la base de datos usando el email
             User userResponse = userService.getUserByEmail(email);
+            UserDTO userDTO = new UserDTO(userResponse.getId(), userResponse.getEmail(), userResponse.getFirstName(), userResponse.getLastName(), userResponse.isActive(), userResponse.getCompany(), userResponse.getAvatarUrl());
+
 
             // Devolver la respuesta con el perfil
-            return ResponseEntity.status(HttpStatus.OK).body(Map.of("status", "success", "data", userResponse));
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("status", "success", "data", userDTO));
         } catch (Exception e) {
             logger.error("Error al obtener el perfil del usuario", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");

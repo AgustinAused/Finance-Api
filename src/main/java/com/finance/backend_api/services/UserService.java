@@ -39,6 +39,7 @@ public class UserService {
         user.setFirstName(userRequest.getFirst_name());
         user.setLastName(userRequest.getLast_name());
         user.setUsername(userRequest.getUsername());
+        user.setAvatarUrl(userRequest.getAvatar());
         user.setCompany(companyOpt);
 
         //guardar usuario
@@ -60,16 +61,16 @@ public class UserService {
         return "User deleted successfully";
     }
 
-    public UserDTO updateUser(User user) {
+    public UserDTO updateUser(Long id, UserRequest user) {
         // Buscar si el usuario existe por su email
-        User existingUser = repository.findByEmail(user.getEmail())
+        User existingUser = repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         // Actualizar los campos del usuario
-        existingUser.setFirstName(user.getFirstName());
-        existingUser.setLastName(user.getLastName());
-        existingUser.setUsername(user.getUsername());
+        existingUser.setFirstName(user.getFirst_name());
+        existingUser.setLastName(user.getLast_name());
         existingUser.setEmail(user.getEmail());
+        existingUser.setUsername(user.getEmail());
 
         // Guardar el usuario actualizado
         existingUser = repository.save(existingUser);
