@@ -3,6 +3,7 @@ package com.finance.backend_api.controllers;
 import com.finance.backend_api.request.AuthRequest;
 import com.finance.backend_api.response.AuthResponse;
 import com.finance.backend_api.services.AuthenticacionService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @Tag(name = "Auth API", description = "API Endpoints for Authentication")
+@SecurityRequirement(name = "BearerAuth")
 public class AuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);

@@ -3,7 +3,7 @@ package com.finance.backend_api.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.cassandra.config.CqlSessionFactoryBean;
-import java.nio.file.Path;
+
 
 @Configuration
 public class FactoryBeanAppConfig {

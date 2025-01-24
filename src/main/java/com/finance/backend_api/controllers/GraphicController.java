@@ -3,6 +3,7 @@ package com.finance.backend_api.controllers;
 import com.finance.backend_api.DTOs.CategoryIncomeExpenseDTO;
 import com.finance.backend_api.DTOs.MonthlyTransactionDTO;
 import com.finance.backend_api.services.GraphicService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/graphic")
 @Tag(name = "Graphic API", description = "")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "BearerAuth")
 public class GraphicController {
 
     private final GraphicService graphicService;

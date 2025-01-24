@@ -3,6 +3,7 @@ package com.finance.backend_api.controllers;
 import com.finance.backend_api.models.Category;
 import com.finance.backend_api.request.CategoryRequest;
 import com.finance.backend_api.services.CategoryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/categories")
 @Tag(name = "Category Controller", description = "API for managing categories")
+@SecurityRequirement(name = "BearerAuth")
 public class CategoryController {
 
 

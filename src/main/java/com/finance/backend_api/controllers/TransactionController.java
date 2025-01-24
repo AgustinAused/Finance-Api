@@ -5,6 +5,7 @@ import com.finance.backend_api.DTOs.TransactionDTO;
 import com.finance.backend_api.request.TransactionRequest;
 import com.finance.backend_api.models.Transaction;
 import com.finance.backend_api.services.TransactionService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/transactions")
 @Tag(name = "Transaction Controller", description = "API for managing transactions")
+@SecurityRequirement(name = "BearerAuth")
 public class TransactionController {
 
     private final TransactionService transactionService;

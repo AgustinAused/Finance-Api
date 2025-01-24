@@ -1,6 +1,7 @@
 package com.finance.backend_api.controllers;
 
 import com.finance.backend_api.services.FileService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @RequestMapping("/api/files")
 @Tag(name = "File Controller", description = "API for managing files")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "BearerAuth")
 public class FileController {
 
     private final FileService fileService;

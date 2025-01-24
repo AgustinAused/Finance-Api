@@ -8,6 +8,7 @@ import com.finance.backend_api.exceptions.UserExistException;
 import com.finance.backend_api.models.User;
 import com.finance.backend_api.services.FileService;
 import com.finance.backend_api.services.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ import java.util.Map;
 @RequestMapping("/api/user")
 @Tag(name = "User Controller", description = "API for managing users")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "BearerAuth")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);

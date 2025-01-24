@@ -3,6 +3,7 @@ package com.finance.backend_api.controllers;
 import com.finance.backend_api.models.Company;
 import com.finance.backend_api.request.CompanyRequest;
 import com.finance.backend_api.services.CompanyService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RequestMapping("/api/companies")
 @RequiredArgsConstructor
 @Tag(name = "Company Controller", description = "API for managing companies")
+@SecurityRequirement(name = "BearerAuth")
 public class CompanyController {
 
     private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
