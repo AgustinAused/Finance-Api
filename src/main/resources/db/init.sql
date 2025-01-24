@@ -2,6 +2,7 @@ CREATE TABLE Companies (
                            id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                            name VARCHAR(255) NOT NULL UNIQUE,
                            address TEXT,
+                           email VARCHAR(255) CHECK (email ~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$'),
                            phone VARCHAR(20) CHECK (phone ~ '^\+?[0-9]*$')
     );
 
@@ -13,6 +14,7 @@ CREATE TABLE Users (
                        firstName VARCHAR(255) NOT NULL,
                        lastName VARCHAR(255) NOT NULL,
                        active BOOLEAN DEFAULT FALSE,
+                       phone VARCHAR(20) CHECK (phone ~ '^\+?[0-9]*$'),
                        avatarUrl VARCHAR(255) CHECK (avatarUrl ~* '^(http|https)://'),
                        company_id bigint,
                        FOREIGN KEY (company_id) REFERENCES Companies(id) ON DELETE SET NULL
