@@ -117,6 +117,16 @@ public class UserService {
         return userDTO;
     }
 
+    public UserDTO updateUserPhoto(Long userId, String newPhotoUrl) {
+        User user = repository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        user.setAvatarUrl(newPhotoUrl);
+        User updatedUser = repository.save(user);
+        return new UserDTO(updatedUser.getId(), updatedUser.getEmail(), updatedUser.getFirstName(), updatedUser.getLastName(),
+                updatedUser.isActive(), updatedUser.getCompany(), updatedUser.getAvatarUrl(), updatedUser.getPhone());
+    }
+
 
     private String generatePassword() {
         //generate password
