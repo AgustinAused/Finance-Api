@@ -9,19 +9,12 @@ import lombok.Setter;
 @Setter
 public class CompanyRequest {
 
-    private Long id;
-
     private String name;
 
     private String phone;
 
     private String address;
 
-    public CompanyRequest(String name, String phone, String address){
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-    }
-
+    private String email;
 
 }

@@ -24,6 +24,9 @@ public class Company {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "phone")
     private String phone;
 }

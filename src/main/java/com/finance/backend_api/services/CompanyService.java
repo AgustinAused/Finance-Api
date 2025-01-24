@@ -21,7 +21,7 @@ public class CompanyService {
     //Method CRUD
 
     //add company
-    public Long addCompany(CompanyRequest companyRequest){
+    public Company addCompany(CompanyRequest companyRequest){
 
         Optional<Company> companyExist = repository.findByName(companyRequest.getName());
         if (companyExist.isPresent()){
@@ -32,12 +32,13 @@ public class CompanyService {
         company.setName(companyRequest.getName());
         company.setPhone(companyRequest.getPhone());
         company.setAddress(companyRequest.getAddress());
+        company.setEmail(companyRequest.getEmail());
 
-        return repository.save(company).getId();
+        return repository.save(company);
     }
 
-    public Long updateCompany(CompanyRequest companyRequest){
-        Optional<Company> company = repository.findById(companyRequest.getId());
+    public Company updateCompany(Long id, CompanyRequest companyRequest){
+        Optional<Company> company = repository.findById(id);
         if(company.isEmpty()){
             throw new CompanyNotFoundException("This company does not exist");
         }
@@ -45,7 +46,8 @@ public class CompanyService {
         company1.setName(companyRequest.getName());
         company1.setPhone(companyRequest.getPhone());
         company1.setAddress(companyRequest.getAddress());
-        return repository.save(company1).getId();
+        company1.setEmail(companyRequest.getEmail());
+        return repository.save(company1);
     }
 
     public void deleteCompany(Long id){
