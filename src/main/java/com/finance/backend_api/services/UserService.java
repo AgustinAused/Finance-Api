@@ -39,13 +39,12 @@ public class UserService {
         user.setFirstName(userRequest.getFirst_name());
         user.setLastName(userRequest.getLast_name());
         user.setUsername(userRequest.getUsername());
-        user.setAvatarUrl(userRequest.getAvatar());
         user.setCompany(companyOpt);
 
         //guardar usuario
         User newUser = repository.save(user);
         return new UserDTO(newUser.getId(), newUser.getEmail(), newUser.getFirstName(), newUser.getLastName(),
-                newUser.isActive(), newUser.getCompany(), newUser.getAvatarUrl());
+                newUser.isActive(), newUser.getCompany(), newUser.getAvatarUrl(), newUser.getPhone());
     }
 
     public User getUserByEmail(String email) {
@@ -71,13 +70,14 @@ public class UserService {
         existingUser.setLastName(user.getLast_name());
         existingUser.setEmail(user.getEmail());
         existingUser.setUsername(user.getEmail());
+        existingUser.setPhone(user.getPhone());
 
         // Guardar el usuario actualizado
         existingUser = repository.save(existingUser);
 
         // Devolver el UserDTO
         return new UserDTO(existingUser.getId(), existingUser.getEmail(), existingUser.getFirstName(),
-                existingUser.getLastName(), existingUser.isActive(), existingUser.getCompany(), existingUser.getAvatarUrl());
+                existingUser.getLastName(), existingUser.isActive(), existingUser.getCompany(), existingUser.getAvatarUrl(), existingUser.getPhone());
     }
 
 

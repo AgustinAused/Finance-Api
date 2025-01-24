@@ -48,6 +48,9 @@ public class User implements UserDetails {
     @Column(name = "avatarurl")
     private String avatarUrl;
 
+    @Column(name = "phone")
+    private String phone;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

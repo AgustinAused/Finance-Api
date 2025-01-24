@@ -130,7 +130,7 @@ public class UserController {
 
             // Obtener el usuario desde la base de datos usando el email
             User userResponse = userService.getUserByEmail(email);
-            UserDTO userDTO = new UserDTO(userResponse.getId(), userResponse.getEmail(), userResponse.getFirstName(), userResponse.getLastName(), userResponse.isActive(), userResponse.getCompany(), userResponse.getAvatarUrl());
+            UserDTO userDTO = new UserDTO(userResponse.getId(), userResponse.getEmail(), userResponse.getFirstName(), userResponse.getLastName(), userResponse.isActive(), userResponse.getCompany(), userResponse.getAvatarUrl(), userResponse.getPhone());
 
 
             // Devolver la respuesta con el perfil

@@ -13,6 +13,7 @@ public class UserRequest {
     private String last_name;
     private String companyName;
     private String avatar;
+    private String phone;
 
     public UserRequest() {
     }
@@ -24,9 +25,10 @@ public class UserRequest {
         this.last_name = last_name;
         this.companyName = companyName;
     }
-    public UserRequest(String email, String first_name, String last_name) {
+    public UserRequest(String email, String first_name, String last_name, String phone) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
+        this.phone = phone;
     }
 }
