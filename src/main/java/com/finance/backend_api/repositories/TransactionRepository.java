@@ -3,6 +3,8 @@ package com.finance.backend_api.repositories;
 import com.finance.backend_api.DTOs.CategoryIncomeExpenseDTO;
 import com.finance.backend_api.DTOs.MonthlyTransactionDTO;
 import com.finance.backend_api.models.Transaction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,8 +15,6 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-
-    List<Transaction> findByCompanyId(Long companyId);
 
     List<Transaction> findByCompanyIdAndType(Long companyId, String transactionType);
 
@@ -47,4 +47,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "GROUP BY c.name " +
             "ORDER BY c.name")
     List<CategoryIncomeExpenseDTO> findIncomeAndExpenseCategoriesByCompany(Long companyId);
+
+    @Query("SELECT t FROM Transaction t WHERE t.company.id = :companyId")
+    Page<Transaction> findByCompanyId(@Param("companyId") Long companyId, Pageable pageable);
 }

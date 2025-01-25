@@ -7,6 +7,7 @@ import com.finance.backend_api.models.Transaction;
 import com.finance.backend_api.services.TransactionService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<?> addTransaction(@RequestBody TransactionRequest transactionRequest) {
         Transaction transaction = transactionService.saveTransaction(transactionRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -51,13 +52,26 @@ public class TransactionController {
 
 
 //    get transaction
-    @GetMapping("/{companyId}")
-    public ResponseEntity<?> getTransactionByCompanyId(@PathVariable Long companyId) {
-        List<TransactionDTO> transactionList = transactionService.getTransactionsByCompanyId(companyId);
-        return ResponseEntity.ok(
-                Map.of("status", "success", "data", transactionList)
-        );
-    }
+@GetMapping("/{companyId}")
+public ResponseEntity<?> getTransactionByCompanyId(
+        @PathVariable Long companyId,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+) {
+    // Obtener la lista paginada de transacciones
+    Page<TransactionDTO> transactionPage = transactionService.getTransactionsByCompanyId(companyId, page, size);
+
+    // Crear la respuesta con el formato deseado
+    return ResponseEntity.ok(
+            Map.of(
+                    "status", "success",
+                    "data", transactionPage.getContent(),
+                    "currentPage", transactionPage.getNumber(),
+                    "totalItems", transactionPage.getTotalElements(),
+                    "totalPages", transactionPage.getTotalPages()
+            )
+    );
+}
 
     @GetMapping("/{companyId}/expenses")
     public ResponseEntity<?> getExpenses(@PathVariable Long companyId) {

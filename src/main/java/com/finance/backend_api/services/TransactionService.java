@@ -9,6 +9,9 @@ import com.finance.backend_api.models.Company;
 import com.finance.backend_api.models.Transaction;
 import com.finance.backend_api.models.User;
 import com.finance.backend_api.repositories.TransactionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,25 +55,22 @@ public class TransactionService {
     }
 
 
-    public List<TransactionDTO> getTransactionsByCompanyId(Long companyId) {
-        List<Transaction> transactions = transactionRepository.findByCompanyId(companyId);
-        if (transactions.isEmpty()) {
-            throw new TransactionNotFoundException("No transactions found");
-        }
-        List<TransactionDTO> transLst =  new ArrayList<>();
-        for (Transaction transaction : transactions) {
-            TransactionDTO transactionDTO = new TransactionDTO();
-            transactionDTO.setId(transaction.getId().toString());
-            transactionDTO.setAmount(transaction.getAmount());
-            transactionDTO.setCreatedAt(transaction.getTimestamp().toString());
-            transactionDTO.setDescription(transaction.getDescription());
-            transactionDTO.setCategoryName(transaction.getCategory().getName());
-            transactionDTO.setUserName(transaction.getUser().getUsername());
-            transactionDTO.setType(transaction.getType());
-            transLst.add(transactionDTO);
-        }
-        return transLst;
+    public Page<TransactionDTO> getTransactionsByCompanyId(Long companyId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Transaction> transactions = transactionRepository.findByCompanyId(companyId, pageable);
+
+        // Convertir cada entidad Transaction a un DTO
+        return transactions.map(transaction -> new TransactionDTO(
+                transaction.getId(),
+                transaction.getType(),
+                transaction.getAmount(),
+                transaction.getDescription(),
+                transaction.getCategory().getName(),
+                transaction.getUser().getFirstName() + " " + transaction.getUser().getLastName(),
+                transaction.getReceiptUrl()
+        ));
     }
+
 
     public List<Transaction> getTransactionsCategoryIdAndCompanyId(Long categoryId, Long companyId) {
         return transactionRepository.findByCategoryIdAndCompanyId(categoryId, companyId);
