@@ -48,12 +48,10 @@ public class CategoryController {
 
 //    obtener categoría por compania
     @GetMapping("/{companyId}")
-    public ResponseEntity<?> getCategoryByCompanyId(@PathVariable Long companyId){
+    public ResponseEntity<?> getCategoriesByCompanyId(@PathVariable Long companyId){
         List<Category> categoryList = categoryService.getCategoryByCompanyId(companyId);
         return ResponseEntity.ok().body(Map.of("Status", "success", "data", categoryList, "total", categoryList.size(), "path", "/api/categories/"+companyId));
     }
-
-
 
 
 }
