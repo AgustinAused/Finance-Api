@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +59,9 @@ public class TransactionService {
         Pageable pageable = PageRequest.of(page, size);
         Page<Transaction> transactions = transactionRepository.findByCompanyId(companyId, pageable);
 
+        // Definir un formato personalizado
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
         // Convertir cada entidad Transaction a un DTO
         return transactions.map(transaction -> new TransactionDTO(
                 transaction.getId(),
@@ -67,6 +70,7 @@ public class TransactionService {
                 transaction.getDescription(),
                 transaction.getCategory().getName(),
                 transaction.getUser().getFirstName() + " " + transaction.getUser().getLastName(),
+                formatter.format(transaction.getTimestamp()),
                 transaction.getReceiptUrl()
         ));
     }

@@ -19,7 +19,7 @@ public class TransactionDTO {
     private String description;
     private String categoryName;
     private String userName;
-    private Date createdAt;
+    private String createdAt;
     private String receiptUrl;
 
     public TransactionDTO(Long id, String type, Double amount, String description, String categoryName, String userName, String receiptUrl) {
